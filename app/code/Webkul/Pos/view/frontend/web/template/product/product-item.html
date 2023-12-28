@@ -1,0 +1,31 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<div class="product-item" title="<%- product.name %>" data-entityid="<%- product.entityId %>" data-hasoptions="<%- product.hasOptions %>">
+    <div class="product-item-image-container">
+        <div class="refresh-product-icon-container hidden">
+            <i class="material-icons refresh-product-icon" title="<%- $t('Reload Inventory') %>">refresh</i>
+        </div>
+        <i class="material-icons out-of-stock <%- outOfStockClass %>" title="<%- $t('Out of stock') %>">error_outline</i>
+        <img src="<%- product.thumbNail %>" class="product-item-image" style="background-color:<%- product.dominantColor %>;height:<%- height %>px">
+        <% if (product.sku.length > 12) { %>
+            <span class="product-item-sku" title="'+sku+'"><%- product.sku.match(/.{1,9}/) %>...</span>
+        <% } else { %>
+            <span class="product-item-sku" title="'+sku+'"><%- product.sku %></span>
+        <% } %>
+        </div>
+    <div class="product-item-description-container">
+        <label class="product-item-name"><%- product.name %></label>    
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<div class="input-box">
+    <select data-option-id="<%- eachOption.option_id %>" data-productid="<%- currentProductId %>" class="product-custom-option custom-option-dropdown-type">
+        <option value="">-- <%- $t("Please Select") %> --</option>
+        <% for (var i=0; i < eachOption.optionValues.length; i++) {
+            var value = eachOption.optionValues[i];
+            if (value.price > 0) {
+                if (value.price_type == "fixed") { %>
+                    <option data-title="<%- value.title %>" data-price="<%- value.unformated_price %>" value="<%- value.option_type_id %>"><%- value.title %> +<%- value.formated_price %></option>
+                <% } else {
+                    var percentprice = (currentProductData.finalPrice * value.price) / 100; %>
+                    <option data-title="<%- value.title %>" data-price="<%- percentprice %>" value="<%- value.option_type_id %>"><%- value.title %> +<%- self.formatCurrency(percentprice) %></option>
+                <% }
+            } else { %>
+                <option data-title="<%- value.title %>" data-price="<%- value.unformated_price %>" value="<%- value.option_type_id %>"><%- value.title %></option>
+            <% }
+        } %>
+    </select>
+</div>

@@ -1,0 +1,1035 @@
+<!--
+    /**
+     * Webkul Software.
+     * 
+     * PHP version 7.0+
+     *
+     * @category  Webkul
+     * @package   Webkul_Pos
+     * @author    Webkul <support@webkul.com>
+     * @copyright Webkul Software Private Limited (https://webkul.com)
+     * @license   https://store.webkul.com/license.html ASL Licence
+     * @link      https://store.webkul.com/license.html
+     */
+-->
+<div class="login-overlay">
+    <div  class="login-form-container">
+        <div class="hidden login-loader cp-spinner cp-skeleton"></div>
+        <label class="login-form-row login-form-heading"><?= /* @noEscape */ __("point of sale"); ?></label>
+        <div class="login-form-row login-form-username-field-container">
+            <input type="text" 
+            autocomplete="off" placeholder="<?= /* @noEscape */ __("User Name") ?>" 
+            name="pos[<?= $escaper->escapeHtml(time());?>]" class="login-username"/>
+        </div>
+        <div class="login-form-row login-form-password-field-container">
+            <input type="password" autocomplete="off" 
+            placeholder="<?= /* @noEscape */ __("Password") ?>" name="pos[<?= $escaper->escapeHtml(time()+1);?>]" 
+            class="login-password"/>
+        </div>
+        <button class="login-form-row signin-btn"><?= /* @noEscape */ __("Sign in"); ?></button>
+    </div>
+</div>
+<div class="creditmemo-page-overlay hidden">
+    <div class="creditmemo-page-container-wrapper">
+        <i title="<?= /* @noEscape */  __("Close"); ?>" class="material-icons close-creditmemo-section">close</i>
+        <div class="creditmemo-page-container">
+            <div class="creditmemo-list-head">
+                <i class="hidden material-icons back-creditmemo-details">keyboard_arrow_left</i>
+                <label class="creditmemo-list-heading creditmemo-list-left-heading">
+                    <?= /* @noEscape */ __("Credit Memo List"); ?>
+                </label>
+                <i class="material-icons rotate hidden">sync</i>
+                <label class="creditmemo-list-heading creditmemo-list-right-heading"></label>
+            </div>
+            <div class="creditmemo-page-enlargedcontainer">
+                <div class="creditmemo-list"></div>
+                <div class="creditmemo-details">
+                    <div class="creditmemo-detail-section"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="notification-container"></div>
+<!--div class="notification-message-container info-msg">
+    <i class="material-icons">info</i>
+    <label class="notification-message"></label>
+</div-->
+<div class="wrapper">
+    <div class="drawer-menu-container">
+        <i class="material-icons user-logout-button" title="<?= /* @noEscape */ __("Logout"); ?>">power_settings_new</i>
+        <div class="profile-data-container">
+            <img class="cashier-profile-image" 
+            src="<?= $escaper->escapeUrl($block->getViewFileUrl("Webkul_Pos::images/profile.jpg")); ?>"/>
+            <label class="cashier-label"><?= /* @noEscape */  __("Cashier"); ?></label>
+            <label class="cashier-name"></label>
+        </div>
+        <div class="drawer-menu-item home-button" title="<?= /* @noEscape */ __("Home"); ?>">
+            <i class="material-icons drawer-menu-item-icon">home</i>
+            <label class="drawer-menu-item-label"><?= /* @noEscape */  __("Home"); ?></label>
+        </div>
+        <div class="drawer-menu-item order-history-button" title="<?= /* @noEscape */  __("Order History"); ?>">
+            <i class="material-icons drawer-menu-item-icon">local_offer</i>
+            <label class="drawer-menu-item-label"><?= /* @noEscape */  __("Order History"); ?></label>
+        </div>
+        <div class="drawer-menu-item hold-order-history-button" title="<?= /* @noEscape */  __("Orders on Hold"); ?>">
+            <i class="material-icons drawer-menu-item-icon">hourglass_empty</i>
+            <label class="drawer-menu-item-label"><?= /* @noEscape */  __("Orders on Hold"); ?></label>
+        </div>
+        <div class="drawer-menu-item cash-drawer-button" title="<?= /* @noEscape */  __("Cash Drawer"); ?>">
+            <i class="material-icons drawer-menu-item-icon">local_atm</i>
+            <label class="drawer-menu-item-label"><?= /* @noEscape */  __("Cash Drawer"); ?></label>
+        </div>
+        <div class="drawer-menu-item refresh-productlist-button" 
+        title="<?= /* @noEscape */  __("Refresh Product List"); ?>">
+            <i class="material-icons drawer-menu-item-icon">view_module</i>
+            <label class="drawer-menu-item-label"><?= /* @noEscape */  __("Refresh Product List"); ?></label>
+        </div>
+        <div class="drawer-menu-item refresh-categorylist-button" 
+        title="<?= /* @noEscape */  __("Refresh Category List"); ?>">
+            <i class="material-icons drawer-menu-item-icon">format_align_justify</i>
+            <label class="drawer-menu-item-label"><?= /* @noEscape */  __("Refresh Category List"); ?></label>
+        </div>
+<?php   if (count($block->getCurrencies()) > 1) {   ?>
+            <div class="drawer-menu-item change-currency-button" title="<?= /* @noEscape */  __("Change Currency"); ?>">
+                <i class="material-icons drawer-menu-item-icon">monetization_on</i>
+                <ul class="currency-changer hidden" data-status="off">
+    <?php               foreach ($block->getCurrencies() as $key => $each) {
+        if ($block->helper->storeManager->getStore()->getCurrentCurrency()->getCode() != $key) {
+            ?>
+            <li class='currencies selected-currency' data-value='<?= $escaper->escapeHtml($key) ?>'> 
+                <?= $escaper->escapeHtml($each) ?> 
+            </li>
+            <?php
+        }
+    }       ?>
+                </ul>
+                <label class="drawer-menu-item-label">
+                    <?= $escaper->escapeHtml(
+                        $block->helper->storeManager->getStore()->getCurrentCurrency()->getCode()
+                    ); ?>
+                </label>
+                <i class="material-icons drawer-menu-item-icon currency-changer-icon">arrow_drop_down</i>
+            </div>
+<?php   }
+if (!$block->showStoreOption()) {       ?>
+            <div class="drawer-menu-item change-language-button"
+                title="<?= /* @noEscape */  __("Change Language"); ?>">
+                <i class="material-icons drawer-menu-item-icon">language</i>
+                <label class="drawer-menu-item-label"><?= $escaper->escapeHtml($block->getStoreName()); ?></label>
+                <i class="material-icons drawer-menu-item-icon currency-changer-icon">
+                    arrow_drop_down
+                </i>
+                <div class="hidden language-selector" data-status="off">
+    <?php           foreach ($block->getStoreData() as $eachStore) {
+        ?>
+                        <label class='language-optgroup'><?= $escaper->escapeHtml($eachStore["name"]); ?></label>
+                        <?php
+                        foreach ($eachStore["stores"] as $eachStoreView) {
+                            if ($block->getStore()->getId() != $eachStoreView["id"]) {
+                                ?>
+                                <span class='language-options' 
+                                    data-value='<?= $escaper->escapeHtml($eachStoreView["id"]) ?>'>
+                                        <?= $escaper->escapeHtml($eachStoreView["name"]) ?>
+                                </span>
+                                <?php
+                            }
+                        }
+    }       ?>
+                </div>
+            </div>
+<?php   }   ?>
+        
+    </div>
+    <div class="overlay-to-activate-close"></div>
+    <div class="cash-drawer-overlay hidden">
+        <div class="cash-drawer-transparent-container">
+            <label class="cash-drawer-action-title">
+                <?= /* @noEscape */  __("Please enter opening amount for cash drawer."); ?>
+            </label>
+            <div class="cash-drawer-content-container">
+                <input class="cash-drawer-input" type="text"/>
+            </div>
+            <div class="cash-drawer-close-button-container">
+                <button class="cash-drawer-close-button"><?= /* @noEscape */  __("Done"); ?></button>
+            </div>
+        </div>
+    </div>
+    <div class="category-floating-container hidden">
+        <i class="material-icons pointing-arrow">arrow_drop_up</i>
+        <div class="category-item-container"></div>
+    </div>
+    <div class="catalog-column sibling-container">
+        <div class="header-toolbar">
+            <div class="menu-btn-container top-menu-item drawer-menu-icon-container" 
+            title="<?= /* @noEscape */  __("Menu"); ?>">
+                <i class="material-icons">menu</i>
+            </div>
+            <div class="home-btn-container top-menu-item home-button" title="<?= /* @noEscape */  __("Home"); ?>">
+                <i class="material-icons">home</i>
+            </div>
+            <div class="category-btn-container top-menu-item category-icon-container" 
+                title="<?= /* @noEscape */  __("Show Category"); ?>">
+                <span class="selected-category-name to-click"></span>
+                <i class="material-icons to-click">arrow_drop_down</i>
+            </div>
+<?php       if ($block->helper->getConfigData("pos/configuration/enableoffline") == 1) {    ?>
+                <div class="status-btn-container top-menu-item network-signal-icon-container" 
+                    title="<?= /* @noEscape */  __("Network Indicator/Button"); ?>">
+                    <i class="material-icons network-on-signal">network_wifi</i>
+                    <i class="material-icons network-off-signal hide-signal">signal_wifi_off</i>
+                </div>
+<?php       }           ?>
+            <div class="search-btn-container top-menu-item search-container-parent">
+                <div class="search-container">
+                    <i class="material-icons">search</i>
+                    <input type="text" class="search-field">
+                    <span class="clear-search-field">×</span>
+                </div>
+            </div>
+        </div>
+        <div class="catalog-container">
+            <div class="sub-category-container hidden"></div>
+            <div class="product-container full-height-container">
+                <div class="loader-slider hidden">
+                    <div class="loader-line"></div>
+                    <div class="loader-subline loader-inc"></div>
+                    <div class="loader-subline loader-dec"></div>
+                </div>
+                <div class="empty-product-list hidden">
+                    <div>
+                        <img src="
+                        <?= $escaper->escapeUrl($block->getViewFileUrl("Webkul_Pos::images/no-product.png")); ?>">
+                        <label class="empty-product-list-message">
+                            <?= /* @noEscape */  __("Sorry no product found!"); ?>
+                        </label>
+                    </div>
+                </div>
+                <div class="product-list hidden"></div>
+                <div class="instantcart-overlay hidden">
+                    <div class="instantcart-transparent-container">
+                        <label class="instantcart-action-title">
+                            <?= /* @noEscape */  __("Enter SKU or Scan Barcode"); ?>
+                        </label>
+                        <div class="instantcart-content-container">
+                            <input class="instantcart-input" type="text"/>
+                        </div>
+                        <div class="instantcart-button-container">
+                            <button class="instantcart-done-button"><?= /* @noEscape */  __("Done"); ?></button>
+                            <button class="instantcart-close-button"><?= /* @noEscape */  __("Close"); ?></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-box-overlay hidden">
+                    <div class="option_modal_box">
+                        <div class="option-modal-box-header">
+                            <label class="modal-title"><?= /* @noEscape */  __("Options"); ?></label>
+                            <label class="price-info"></label>
+                        </div>
+                        <div class="option_modal_box_content"></div>
+                        <div class="modal-snack-bar"><?= /* @noEscape */  __("Please Fill Required field."); ?></div>
+                        <div class="option-modal-box-footer">
+                            <button class="modal-cancel-button button btn-cart">
+                                <?= /* @noEscape */  __("Cancel"); ?>
+                            </button>
+                            <button class="modal-action-button button btn-cart">
+                                <?= /* @noEscape */  __("Add To Cart"); ?>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="numeric-keypad hidden">
+            <div class="numeric-keypad-screen">
+                <label></label>
+            </div>
+            <div class="numeric-keypad-errors hidden"></div>
+            <div class="numeric-keypad-button-conatainer">
+                <div class="numeric-keypad-button-row">
+                    <button class="numeric-keypad-button key-one" title="<?= /* @noEscape */  __("1"); ?>">
+                        <?= /* @noEscape */  __("1"); ?>
+                    </button>
+                    <button class="numeric-keypad-button key-two" title="<?= /* @noEscape */  __("2"); ?>">
+                        <?= /* @noEscape */  __("2"); ?>
+                    </button>
+                    <button class="numeric-keypad-button key-three" title="<?= /* @noEscape */  __("3"); ?>">
+                        <?= /* @noEscape */  __("3"); ?>
+                    </button>
+                </div>
+                <div class="numeric-keypad-button-row">
+                    <button class="numeric-keypad-button key-four" title="<?= /* @noEscape */  __("4"); ?>">
+                        <?= /* @noEscape */  __("4"); ?>
+                    </button>
+                    <button class="numeric-keypad-button key-five" title="<?= /* @noEscape */  __("5"); ?>">
+                        <?= /* @noEscape */  __("5"); ?>
+                    </button>
+                    <button class="numeric-keypad-button key-six" title="<?= /* @noEscape */  __("6"); ?>">
+                        <?= /* @noEscape */  __("6"); ?>
+                    </button>
+                </div>
+                <div class="numeric-keypad-button-row">
+                    <button class="numeric-keypad-button key-seven" title="<?= /* @noEscape */  __("7"); ?>">
+                        <?= /* @noEscape */  __("7"); ?>
+                    </button>
+                    <button class="numeric-keypad-button key-eight" title="<?= /* @noEscape */  __("8"); ?>">
+                        <?= /* @noEscape */  __("8"); ?>
+                    </button>
+                    <button class="numeric-keypad-button key-nine" title="<?= /* @noEscape */  __("9"); ?>">
+                        <?= /* @noEscape */  __("9"); ?>
+                    </button>
+                </div>
+                <div class="numeric-keypad-button-row">
+                    <button class="material-icons numeric-keypad-button key-back" 
+                        title="<?= /* @noEscape */  __("delete"); ?>">
+                        backspace
+                    </button>
+                    <button class="numeric-keypad-button key-zero" title="<?= /* @noEscape */  __("0 "); ?>">
+                        <?= /* @noEscape */ __("0 "); ?>
+                    </button>
+                    <button class="numeric-keypad-button key-decimal" title="<?= /* @noEscape */  __("."); ?>">
+                        <?= /* @noEscape */ __("."); ?>
+                    </button>
+                </div>
+                <div class="numeric-keypad-button-row">
+                    <button class="numeric-keypad-button key-done"><?= /* @noEscape */  __("Done"); ?></button>
+                </div>
+            </div>
+        </div>
+        <div class="customer-section-overlay hidden">
+            <div class="customer-section">
+                <div class="customer-loader-slider hidden">
+                    <div class="loader-line"></div>
+                    <div class="loader-subline loader-inc"></div>
+                    <div class="loader-subline loader-dec"></div>
+                </div>
+                <div title="<?= /* @noEscape */  __("Add New Customer"); ?>" class="new-customer-button-container">
+                    <i class="material-icons">person_add</i>
+                </div>
+                <div class="customer-search-container">
+                    <div class="customer-search-box">
+                        <input type="text" placeholder="<?= /* @noEscape */  __("Search for Customer"); ?>" 
+                        class="customer-search-input"/>
+                        <i class="material-icons customer-search-icon">search</i>
+                    </div>
+                    <i title="<?= /* @noEscape */  __("Close"); ?>" 
+                    class="material-icons close-customer-section">close</i>
+                </div>
+                <div class="customer-list-container"></div>
+            </div>
+        </div>
+        <div class="checkout-main-container hidden">
+            <div class="overlay-to-hide hidden"></div>
+            <div class="checkout-heading-container">
+                <label class="checkout-heading-label"><?= /* @noEscape */  __("Checkout"); ?></label>
+                <div class="next-order-btn-container top-menu-item hidden">
+                    <label><?= /* @noEscape */  __("Next Order"); ?></label>
+                    <i class="material-icons">done_all</i>
+                </div>
+<?php           if ($block->helper->getConfigData("pos/configuration/enableoffline") == 1) {    ?>
+                    <div class="status-btn-container top-menu-item network-signal-icon-container" 
+                    title="<?= /* @noEscape */  __("Network Indicator/Button"); ?>">
+                        <i class="material-icons network-on-signal">network_wifi</i>
+                        <i class="material-icons network-off-signal hide-signal">signal_wifi_off</i>
+                    </div>
+<?php           }    ?>
+            </div>
+            <?= /* @noEscape */ $block->getChildHtml('pos-invoice');?>
+            <div class="checkout-content-container">
+                <div class="checkout-customer-section">
+                    <label class="checkout-customer-name"></label>
+                    <i class="material-icons checkout-cusotmer-icon">account_circle</i>
+                </div>
+                <div class="checkout-address-section">
+                    <div class="checkout-address-header-container">
+                        <label class="checkout-address-heading"><?= /* @noEscape */  __("Address"); ?></label>
+                        <i title="<?= /* @noEscape */  __("Change Address"); ?>" 
+                        class="material-icons change-address-icon">edit</i>
+                    </div>
+                    <div class="checkout-address-content-container">
+                        <label class="checkout-address-details">
+                            <label class="checkout-customer-noaddress">
+                                <?= /* @noEscape */  __("no saved address"); ?>
+                            </label>
+                        </label>
+                    </div>
+                    <div class="checkout-customer-address-list-container hidden">
+                        <div class="checkout-customer-address-list-container-header">
+                            <label class="checkout-customer-address-list-customername"></label>
+                            <i title="<?= /* @noEscape */  __("Close"); ?>" 
+                                class="material-icons checkout-customer-address-list-close-icon">close
+                            </i>
+                        </div>
+                        <div class="checkout-customer-address-list">
+                            <label class="checkout-customer-noaddress">
+                                <?= /* @noEscape */  __("no saved address"); ?>
+                            </label>
+                        </div>
+                        <div class="checkout-customer-address-button-container">
+                            <button class="checkout-customer-address-new-button" 
+                                title="<?= /* @noEscape */  __("Add Address"); ?>">
+                                <?= /* @noEscape */  __("Add Address"); ?>
+                            </button>
+                            <button class="checkout-customer-address-done-button" 
+                                title="<?= /* @noEscape */  __("Done"); ?>">
+                                <?= /* @noEscape */  __("Done"); ?>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="checkout-coupon-section">
+                    <div class="checkout-coupon-section-header" 
+                        title="<?= /* @noEscape */  __("Apply Discount Coupon Code"); ?>">
+                        <label class="checkout-coupon-section-heading">
+                            <?= /* @noEscape */  __("Apply Discount Code"); ?>
+                        </label>
+                        <i class="material-icons checkout-coupon-icon">loyalty</i>
+                    </div>
+                    <div class="checkout-coupon-content-section">
+                        <input placeholder="<?= /* @noEscape */  __("Enter discount code"); ?>" 
+                        type="text" class="checkout-coupon-input-field"/>
+                        <button class="checkout-coupon-apply-button checkout-coupon-button" data-buttonType="apply">
+                            <?= /* @noEscape */  __("Apply"); ?>
+                        </button>
+                    </div>
+                </div>
+                <div class="checkout-message-section">
+                    <div class="checkout-message-section-header" 
+                        title="<?= /* @noEscape */  __("Add Note"); ?>">
+                        <label class="checkout-message-section-heading">
+                            <?= /* @noEscape */  __("Custom Message"); ?></label>
+                        <i class="material-icons checkout-message-icon">note_add</i>
+                    </div>
+                    <div class="checkout-message-content-section">
+                        <textarea class="checkout-message-input-field"></textarea>
+                    </div>
+                </div>
+                <div class="checkout-payment-section">
+                    <div class="checkout-payment-section-header" title="<?= /* @noEscape */  __("Payment Method"); ?>">
+                        <label class="checkout-payment-section-heading">
+                            <?= /* @noEscape */  __("Select Payment Method"); ?>
+                        </label>
+                        <i class="material-icons checkout-payment-icon">payment</i>
+                    </div>
+                    <div class="checkout-payment-section-content">
+                        <div class="checkout-payment-item" data-paymentType="cash">
+                            <i class="material-icons checkout-payment-item-radio">radio_button_checked</i>
+                            <label class="checkout-payment-item-label">
+                                <?= $escaper->escapeHtml(
+                                    $block->helper->getConfigData("payment/poscash/title")
+                                )?>
+                            </label>
+                        </div>
+                        <div class="checkout-payment-item" data-paymentType="card">
+                            <i class="material-icons checkout-payment-item-radio">radio_button_unchecked</i>
+                            <label class="checkout-payment-item-label">
+                                <?= $escaper->escapeHtml(
+                                    $block->helper->getConfigData("payment/poscredit/title")
+                                )?>
+                                </label>
+                            <input type="text" class="card-four-digit hidden" placeholder="XXXX" maxlength="4" 
+                                title="<?= /* @noEscape */  __("Provide last Four digit of card"); ?>">
+                            <span class="errmsg validation-advice"></span>
+                        </div>
+                    </div>
+                    <div class="checkout-payment-split-section">
+                        <i class="material-icons checkout-payment-split-checkbox">check_box_outline_blank</i>
+                        <label class="checkout-payment-split-label">
+                            <?= $escaper->escapeHtml(
+                                $block->helper->getConfigData("payment/possplit/title")
+                            )?>
+                        </label>
+                        <div class="checkout-payment-split-section-content hidden">
+                            <table class="checkout-payment-split-table">
+                                <tr data-paymentType="cash">
+                                    <td>
+                                        <i class="material-icons checkout-payment-split-item-checkbox">
+                                            check_box_outline_blank
+                                        </i>
+                                    </td>
+                                    <td>
+                                        <label class="checkout-payment-split-item-label">
+                                            <?= /* @noEscape */  __("Cash"); ?></label>
+                                    </td>
+                                    <td>
+                                        <input disabled="true" type="number" min="0" maxlength="10" 
+                                        class="split-payment-input checkout-payment-split-input-cash">
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr data-paymentType="card">
+                                    <td>
+                                        <i class="material-icons checkout-payment-split-item-checkbox">
+                                            check_box_outline_blank 
+                                        </i>
+                                    </td>
+                                    <td>
+                                        <label class="checkout-payment-split-item-label">
+                                            <?= /* @noEscape */  __("Credit/Debit Card"); ?>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input disabled="true" type="number" min="0" maxlength="10" 
+                                        class="split-payment-input checkout-payment-split-input-card">
+                                    </td>
+                                    <td>
+                                        <input disabled="true" type="text" class="card-four-digit" placeholder="XXXX" 
+                                        maxlength="4" 
+                                        title="<?= /* @noEscape */  __("Provide last Four digit of card"); ?>">
+                                        <span class="errmsg validation-advice"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="checkout-totals-section">
+                    <div class="checkout-totals-section-header">
+                        <label class="checkout-totals-section-heading">
+                            <?= /* @noEscape */  __("Total Payable"); ?>
+                        </label>
+                        <label class="checkout-totals-payable-amount"></label>
+                    </div>
+                    <div class="checkout-totals-content-section">
+                        <input type="number" min="0" maxlength="10" class="checkout-totals-payment-input-field">
+                        <label class="checkout-totals-remaining-payment"></label>
+                        <label class="checkout-totals-remaining-paymen-label">
+                            <?= /* @noEscape */  __("Change"); ?> : 
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="checkout-footer">
+                <button class="checkout-cancel-button" title="<?= /* @noEscape */  __("Cancel"); ?>">
+                    <?= /* @noEscape */  __("Cancel"); ?>
+                </button>
+                <button class="checkout-placeorder-button" title="<?= /* @noEscape */  __("Place Order"); ?>">
+                    <?= /* @noEscape */  __("Place Order"); ?>
+                </button>
+            </div>
+        </div>
+        <div class="new-customer-section hidden">
+            <div class="new-customer-heading-container modal-heading-container">
+                <label class="new-customer-heading modal-heading" 
+                    title="<?= /* @noEscape */  __("Add New Customer"); ?>">
+                    <?= /* @noEscape */  __("Add New Customer"); ?>
+                </label>
+                <i class="material-icons close-customer-form-icon">close</i>
+                <?php if ($block->helper->getConfigData("pos/configuration/googleapikey")):?>
+                <i class="material-icons fill-current-location">my_location</i>
+                <?php endif?>
+            </div>
+            <div class="new-customer-form">
+                <div class="location-loader-slider hidden">
+                    <div class="loader-line"></div>
+                    <div class="loader-subline loader-inc"></div>
+                    <div class="loader-subline loader-dec"></div>
+                </div>
+                <div class="new-customer-form-row">
+                    <div class="new-customer-sibling-column">
+                        <label class="new-customer-field-label">
+                            <?= /* @noEscape */  __("First Name"); ?><em>*</em>
+                        </label>
+                        <input class="new-customer-field-input new-customer-firstname" type="text" value="">
+                    </div>
+                    <div class="new-customer-sibling-column">
+                        <label class="new-customer-field-label">
+                            <?= /* @noEscape */  __("Last Name"); ?><em>*</em>
+                        </label>
+                        <input class="new-customer-field-input new-customer-lastname" type="text" value="">
+                    </div>
+                </div>
+                <div class="new-customer-form-row">
+                    <div class="new-customer-sibling-column">
+                        <label class="new-customer-field-label">
+                            <?= /* @noEscape */  __("Email"); ?><em>*</em>
+                        </label>
+                        <input class="new-customer-field-input new-customer-email" type="text" value="">
+                    </div>
+                    <div class="new-customer-sibling-column">
+                        <label class="new-customer-field-label">
+                            <?= /* @noEscape */  __("Telephone"); ?><em>*</em>
+                        </label>
+                        <input class="new-customer-field-input new-customer-telephone" type="text" value="">
+                    </div>
+                </div>
+                <div class="new-customer-form-row">
+                    <div class="new-customer-sibling-column">
+                        <label class="new-customer-field-label">
+                            <?= /* @noEscape */  __("Street Address"); ?><em>*</em>
+                        </label>
+                        <input class="new-customer-field-input new-customer-address" type="text" value="">
+                    </div>
+                    <div class="new-customer-sibling-column">
+                        <label class="new-customer-field-label">
+                            <?= /* @noEscape */  __("Street Address 2"); ?>
+                        </label>
+                        <input class="new-customer-field-input new-customer-address1" type="text">
+                    </div>
+                </div>
+                <div class="new-customer-form-row">
+                    <div class="new-customer-sibling-column">
+                        <label class="new-customer-field-label">
+                            <?= /* @noEscape */  __("City"); ?><em>*</em>
+                        </label>
+                        <input class="new-customer-field-input new-customer-city" type="text" value="">
+                    </div>
+                    <div class="new-customer-sibling-column">
+                        <label class="new-customer-field-label">
+                            <?= /* @noEscape */  __("Zip/Postal Code"); ?><em>*</em>
+                        </label>
+                        <input class="new-customer-field-input new-customer-zipcode" type="text" value="">
+                    </div>
+                </div>
+                <div class="new-customer-form-row">
+                    <div class="new-customer-sibling-column">
+                        <label class="new-customer-field-label"><?= /* @noEscape */  __("Country"); ?><em>*</em></label>
+                        <select class="new-customer-field-select billing-country"></select>
+                    </div>
+                    <div class="new-customer-sibling-column">
+                        <label class="new-customer-field-label"><?= /* @noEscape */  __("State"); ?><em>*</em></label>
+                        <input class="new-customer-field-input new-customer-state" type="text">
+                        <select class="new-customer-field-select state-option hidden"></select>
+                    </div>
+                </div>
+                <button class="save-customer-button"><?= /* @noEscape */  __("Continue"); ?></button>
+            </div>
+        </div>
+
+        <div class="custom-grand-discount-overlay hidden">
+            <div class="custom-discount-transparent-container">
+                <div class="custom-discount-heading-container modal-heading-container">
+                    <label class="custom-discount-heading modal-heading" 
+                    title="<?= /* @noEscape */  __("Custom Discount on grand Total"); ?>">
+                        <?= /* @noEscape */  __("Custom Discount on grand Total"); ?>
+                    </label>
+                    <i class="material-icons close-grand-discount-form-icon">close</i>
+                </div>
+                <div class="new-grand-discount-form custom-grand-discount-form">   
+                    <div class="new-discount-sibling-column">
+                        <label class="new-discount-field-label"><?= /* @noEscape */  __("Type"); ?></label>
+                        <select class="new-grand-discount-field-select grand-type-option">
+                            <option value="1"><?= /* @noEscape */  __("Fixed") ?></option>
+                            <option value="2"><?= /* @noEscape */  __("Percentage") ?></option>
+                        </select>
+                    </div>                      
+                    <div class="new-discount-sibling-column">
+                        <label class="new-discount-field-label">
+                            <?= /* @noEscape */  __("Discount"); ?><em>*</em>
+                        </label>
+                        <input class="new-grand-discount-field-input grand-discount" 
+                            type="text" value="" maxlength="10">
+                    </div>   
+                </div>
+                <input id="grandTotal" type="hidden" value="">
+                <button class="apply-custom-grand-discount-button"><?= /* @noEscape */  __("Apply"); ?></button>
+            </div>
+        </div>
+        <div class="custom-discount-overlay hidden">
+            <div class="custom-discount-transparent-container">
+                <div class="new-customer-heading-container modal-heading-container">
+                    <label class="new-customer-heading modal-heading" 
+                        title="<?= /* @noEscape */  __("Custom Discount Per Item Price"); ?>">
+                        <?= /* @noEscape */  __("Custom Discount Per Item Price"); ?>
+                    </label>
+                    <i class="material-icons close-discount-form-icon">close</i>
+                </div>
+                <div class="new-discount-form custom-discount-form">   
+                    <div class="new-discount-sibling-column">
+                        <label class="new-discount-field-label"><?= /* @noEscape */  __("Type"); ?></label>
+                        <select class="new-discount-field-select type-option">
+                            <option value="1">Fixed</option>
+                            <option value="2">Percentage</option>
+                        </select>
+                    </div>                      
+                    <div class="new-discount-sibling-column">
+                        <label class="new-discount-field-label">
+                            <?= /* @noEscape */  __("Discount"); ?><em>*</em>
+                        </label>
+                        <input class="new-discount-field-input discount" type="text" value="" maxlength="10">
+                    </div>   
+                </div>
+                <input id="itemId" type="hidden" value="">
+                <input id="itemSubTotal" type="hidden" value="">
+                <button class="apply-custom-discount-button"><?= /* @noEscape */  __("Apply"); ?></button>
+            </div>
+        </div>
+    </div>
+    <div class="cart-column sibling-container">
+        <?= /* @noEscape */ $block->getChildHtml('pos-cart-header');?>
+        <div class="cart-container">
+            <div class="disable-cart hidden"></div>
+            <div class="cart-item-container"></div>
+            <div class="cart-totals-container hidden">
+                <div class="cart-totals-row subtotal-row">
+                    <div class="cart-totals-left-column">
+                        <label><?= /* @noEscape */  __("Subtotal"); ?></label>
+                    </div>
+                    <div class="cart-totals-right-column">
+                        <label></label>
+                    </div>
+                </div>
+                <div class="cart-totals-row tax-row">
+                    <div class="cart-totals-left-column">
+                        <label><?= /* @noEscape */  __("Tax"); ?></label>
+                    </div>
+                    <div class="cart-totals-right-column">
+                        <label></label>
+                    </div>
+                </div>
+                <div class="cart-totals-row discount-row">
+                    <div class="cart-totals-left-column">
+                        <label><?= /* @noEscape */  __("Discount"); ?></label>
+                    </div>
+                    <div class="cart-totals-right-column">
+                        <label></label>
+                    </div>
+                </div>
+                <div class="cart-totals-row cart-discount-row">
+                    <div class="cart-totals-left-column">
+                        <label><?= /* @noEscape */  __("Custom Cart Discount"); ?></label>
+                    </div>
+                    <div class="cart-totals-right-column">
+                        <label></label>
+                    </div>
+                </div>
+                <div class="cart-totals-row grandtotal-row">
+                    <div class="cart-totals-left-column">
+                        <label><?= /* @noEscape */  __("Grand Total"); ?></label>
+                    </div>
+                    <div class="cart-totals-right-column">
+                        <label></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cart-buttons-container">
+        <div class="disable-cart hidden"></div>
+        <div class="cart-button cart-qty-btn" title="<?= /* @noEscape */  __("Quantity"); ?>">
+            <div class="overlay-to-hide"></div>
+            <i class="cart-btn-icon qty-icon"></i>
+            <p>
+                <?php /* @noEscape */
+                if (strlen(__("Quantity")) > 8) {
+                    echo substr(__("Quantity"), 0, 5)."...";
+                } else {
+                    echo __("Quantity");
+                }
+                ?>
+            </p>
+        </div>
+        <div class="cart-button cart-barcode-sku-btn" 
+            title="<?= /* @noEscape */  __("Barcode"); ?>/<?= /* @noEscape */  __("Sku"); ?>">
+            <i class="cart-btn-icon barcodesku-btn"></i>
+            <p>
+                <?php /* @noEscape */
+                if (strlen(__("Barcode")."/".__("Sku")) > 11) {
+                    echo substr(__("Barcode")."/".__("Sku"), 0, 8)."...";
+                } else {
+                    echo __("Barcode")."/".__("Sku");
+                }
+                ?>
+            </p>
+        </div>
+        <div class="cart-button cart-grand-discount-btn" title="<?= /* @noEscape */  __("Cart Discount"); ?>">
+            <div class="overlay-to-hide"></div>
+            <i class="cart-btn-icon discount-btn"></i>
+            <p>
+                <?php /* @noEscape */
+                if (strlen(__("Cart Discount")) > 13) {
+                    echo substr(__("Cart Discount"), 0, 7)."...";
+                } else {
+                    echo __("Cart Discount");
+                }
+                ?>
+            </p>
+        </div>
+        <div class="cart-button cart-discount-btn" title="<?= /* @noEscape */  __("Cart Item Discount"); ?>">
+            <div class="overlay-to-hide"></div>
+            <i class="cart-btn-icon discount-btn"></i>
+            <p>
+                <?php /* @noEscape */
+                if (strlen(__("Cart Item Discount")) > 18) {
+                    echo substr(__("Cart Item Discount"), 0, 9)."...";
+                } else {
+                    echo __("Cart Item Discount");
+                }
+                ?>
+            </p>
+        </div>
+        <div class="cart-button cart-customer-btn" title="<?= /* @noEscape */  __("Customer"); ?>">
+            <div class="overlay-to-hide hidden"></div>
+            <i class="material-icons cart-btn-icon customer-btn">account_circle</i>
+            <p>
+                <?php /* @noEscape */
+                if (strlen(__("Customer")) > 8) {
+                    echo substr(__("Customer"), 0, 5)."...";
+                } else {
+                    echo __("Customer");
+                }    ?>
+            </p>
+        </div>
+        <div class="cart-button cart-empty-btn" title="<?= /* @noEscape */  __("Empty cart"); ?>">
+            <div class="overlay-to-hide hidden"></div>
+            <i class="material-icons cart-btn-icon emptycart-btn">delete_forever</i>
+            <p>
+                <?php /* @noEscape */
+                if (strlen(__("Empty cart")) > 10) {
+                    echo substr(__("Empty cart"), 0, 7)."...";
+                } else {
+                    echo __("Empty cart");
+                }
+                ?>
+            </p>
+        </div>
+        <div class="cart-button cart-pay-btn" title="<?= /* @noEscape */  __("Pay"); ?>">
+            <div class="overlay-to-hide hidden"></div>
+            <i class="cart-btn-icon currency-btn"></i>
+            <p>
+                <?php /* @noEscape */
+                if (strlen(__("Pay")) > 7) {
+                    echo substr(__("Pay"), 0, 4)."...";
+                } else {
+                    echo __("Pay");
+                }
+                ?>
+            </p>
+            <i class="cart-btn-icon forward-btn"></i>
+        </div>
+    </div>
+    <div class="order-history-container hidden">
+        <div class="order-history-header">
+            <div class="menu-btn-container top-menu-item drawer-menu-icon-container" 
+                title="<?= /* @noEscape */  __("Menu"); ?>">
+                <i class="material-icons">menu</i>
+            </div>
+            <label class="order-history-heading"><?= /* @noEscape */  __("Order History"); ?></label>
+            <i class="material-icons order-history-close">close</i>
+        </div>
+        <div class="order-history-left-container">
+            <div class="order-list-main-container">
+                <div class="order-list-switch-container">
+<?php               if ($block->helper->getConfigData("pos/configuration/enableoffline") == 1) {  ?>
+                        <button class="order-list-switch-button online-list-button active-button">
+                            <?= /* @noEscape */  __("Online Order List"); ?>
+                            <span></span>
+                        </button>
+                        <button class="order-list-switch-button offline-list-button">
+                            <?= /* @noEscape */  __("Offline Order List"); ?>
+                            <span></span>
+                        </button>
+<?php               }   ?>
+                </div>
+                <div class="order-list-container">
+                    <div class="filter-order-container">
+                        <input type="text" class="filter-order-field">
+                        <i class="material-icons filter-order-icon">filter_list</i>
+                    </div>
+                    <div class="online-order-list order-list"></div>
+                    <div class="offline-order-list order-list hidden"></div>
+                </div>
+            </div>
+        </div>
+        <div class="order-history-right-container order-details-n-action-container">
+            <div class="order-details-container">
+                <div class="order-details-heading hidden">
+                    <label><?= /* @noEscape */  __("Order Details"); ?></label>
+                    <i class="material-icons order-item-status hidden">signal_wifi_off</i>
+                </div>
+                <div class="creditmemo-container hidden">
+                    <label class="creditmemo-list-label"><?= /* @noEscape */  __("Credit Memo List"); ?></label>
+                    <span class="view-creditmemo-list-icon">
+                        <?= /* @noEscape */  __("View List"); ?>
+                        <span class="creditmemo-count"></span>
+                    </span>
+                </div>
+                <div class="order-details-internal-container hidden" data-return="off">
+                    <div class="order-item-container"></div>
+                    <div class="order-totals-container">
+                        <div class="cart-totals-row order-subtotal-row">
+                            <div class="cart-totals-left-column">
+                                <label><?= /* @noEscape */  __("Subtotal"); ?></label>
+                            </div>
+                            <div class="cart-totals-right-column">
+                                <label></label>
+                            </div>
+                        </div>
+                        <div class="cart-totals-row order-tax-row">
+                            <div class="cart-totals-left-column">
+                                <label><?= /* @noEscape */  __("Tax"); ?></label>
+                            </div>
+                            <div class="cart-totals-right-column">
+                                <label></label>
+                            </div>
+                        </div>
+                        <div class="cart-totals-row order-discount-row">
+                            <div class="cart-totals-left-column">
+                                <label><?= /* @noEscape */  __("Discount"); ?></label>
+                            </div>
+                            <div class="cart-totals-right-column">
+                                <label></label>
+                            </div>
+                        </div>
+                        <div class="cart-totals-row order-grand-discount-row">
+                            <div class="cart-totals-left-column">
+                                <label><?= /* @noEscape */  __("Custom Cart Discount"); ?></label>
+                            </div>
+                            <div class="cart-totals-right-column">
+                                <label></label>
+                            </div>
+                        </div>
+                        <div class="cart-totals-row order-grandtotal-row">
+                            <div class="cart-totals-left-column">
+                                <label><?= /* @noEscape */  __("Grand Total"); ?></label>
+                            </div>
+                            <div class="cart-totals-right-column">
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="order-action-container">
+                <div class="order-action-container-labels hidden">
+                    <label class="order-action-container-orderId"></label>
+                    <label class="order-action-container-date"></label>
+                    <label class="order-action-container-name"></label>
+                    <label class="order-action-container-address"></label>
+                    <label class="order-action-container-payment-title"></label>
+                    <label class="order-action-container-payment-method"></label>
+                    <div class="order-action-container-note-container hidden">
+                        <label class="order-action-container-note-heading"><?= /* @noEscape */  __("Note"); ?>:</label>
+                        <label class="order-action-container-note"></label>
+                    </div>
+                </div>
+                <div class="order-action-button-container hidden">
+                    <div title="<?= /* @noEscape */  __("Delete Cart"); ?>"
+                        class="order-action-delete-button order-action-button hidden">
+                        <i class="material-icons">delete_forever</i>
+                        <label><?= /* @noEscape */  __("Delete Cart"); ?></label>
+                    </div>
+                    <div title="<?= /* @noEscape */  __("Sync Order"); ?>" 
+                        class="order-action-sync-button order-action-button hidden">
+                        <i class="material-icons">cached</i>
+                        <label><?= /* @noEscape */  __("Sync Order"); ?></label>
+                    </div>
+                    <div title="<?= /* @noEscape */  __("Print Invoice"); ?>"
+                        class="order-action-print-button order-action-button hidden">
+                        <i class="material-icons">print</i>
+                        <label><?= /* @noEscape */  __("Print Invoice"); ?></label>
+                    </div>
+                    <div title="<?= /* @noEscape */  __("Re-Cart"); ?>"
+                        class="order-action-recart-button order-action-button hidden">
+                        <i class="material-icons">redo</i>
+                        <label><?= /* @noEscape */  __("Re-Cart"); ?></label>
+                    </div>
+                    <div title="<?= /* @noEscape */  __("Return"); ?>"
+                        class="order-action-return-button order-action-button hidden">
+                        <i class="material-icons">undo</i>
+                        <label><?= /* @noEscape */  __("Return"); ?></label>
+                    </div>
+                    <div class="return-action-button-container hidden">
+                        <div class="return-in-process hidden">
+                            <i class="material-icons rotate">sync</i>
+                        </div>
+                        <div title="<?= /* @noEscape */  __("Done"); ?>"
+                            class="return-action-button return-action-done-button">
+                            <i class="material-icons">done</i>
+                            <label><?= /* @noEscape */  __("Done"); ?></label>
+                        </div>
+                        <div title="<?= /* @noEscape */  __("Cancel"); ?>"
+                            class="return-action-button return-action-cancel-button">
+                            <i class="material-icons">clear</i>
+                            <label><?= /* @noEscape */  __("Cancel"); ?></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cash-drawer-container hidden">
+        <div class="cash-drawer-header">
+            <div class="menu-btn-container top-menu-item drawer-menu-icon-container"
+            title="<?= /* @noEscape */  __("Menu"); ?>">
+                <i class="material-icons">menu</i>
+            </div>
+            <label class="cash-drawer-heading"><?= /* @noEscape */  __("Cash Drawer"); ?></label>
+            <i class="material-icons cash-drawer-print">print</i>
+            <i class="material-icons cash-drawer-close">close</i>
+        </div>
+        <div class="cash-drawer-left-container">
+            <div class="cash-drawer-list"></div>
+        </div>
+        <div class="cash-drawer-right-container">
+            <div class="cash-drawer-right-container-header">
+                <label class="cash-drawer-header-label"><?= /* @noEscape */  __("Opening Balance"); ?></label>
+                <label class="cash-drawer-header-value"></label>
+            </div>
+            <div class="cash-drawer-details-container">
+                <div class="cash-drawer-details-table-header">
+                    <label class="cash-drawer-details-heading1"><?= /* @noEscape */  __("Order id"); ?></label>
+                    <label class="cash-drawer-details-heading4"><?= /* @noEscape */  __("Balance"); ?></label>
+                    <label class="cash-drawer-details-heading3"><?= /* @noEscape */  __("Debit"); ?></label>
+                    <label class="cash-drawer-details-heading2"><?= /* @noEscape */  __("Credit"); ?></label>
+                </div>
+                <div class="cash-drawer-details-table-row-container"></div>
+            </div>
+            <div class="cash-drawer-right-container-footer">
+                <label class="cash-drawer-footer-label"><?= /* @noEscape */  __("Closing Balance"); ?></label>
+                <label class="cash-drawer-footer-value"></label>
+            </div>
+        </div>
+    </div>
+</div>
+<?= $block->getChildHtml('pos.additional.section'); ?>
+<?php   $params = [
+            "format"                      => $block->getPriceFormat(),
+            "isSingleLoginEnable"         => $block->isSingleLoginEnable(),
+            "formKey"                     => $block->getFormKey(),
+            "storeId"                     => $block->getStore()->getId(),
+            "rateList"                    => $block->getCurrencyRates(),
+            "loginUrl"                    => $block->urlHelper->getUrl("pos/cashier/login"),
+            "pageSize"                    => $block->helper->getConfigData("pos/configuration/pagesize") ?? 50,
+            "debugging"                   => $block->getRequest()->getParam("debugging"),
+            "logoutUrl"                   => $block->urlHelper->getUrl("pos/cashier/logout"),
+            "isLoggedIn"                  => $block->coreSession->create()->getIsLoggedin() ?? false,
+            "syncNowUrl"                  => $block->urlHelper->getUrl("pos/index/saveOrder"),
+            "syncRequestUrl"              => $block->urlHelper->getUrl("pos/index/syncRequest"),
+            "saveOrderUrl"                => $block->urlHelper->getUrl("pos/index/saveOrder"),
+            "calculateTax"                => $block->urlHelper->getUrl("pos/index/calculatetax"),
+            "searchproduct"               => $block->urlHelper->getUrl("pos/index/searchProduct"),
+            "customerAddress"             => $block->urlHelper->getUrl("pos/index/GetCustomerExtraData"),
+            "getProductUrl"               => $block->urlHelper->getUrl("pos/index/getproductdata"),
+            "creditMemoUrl"               => $block->urlHelper->getUrl("pos/index/createcreditmemo"),
+            "creditMemoStatusUrl"         => $block->urlHelper->getUrl("pos/index/getcreditmemostatus"),
+            "countryListUrl"              => $block->urlHelper->getUrl("pos/index/getcountrylist"),
+            "productListUrl"              => $block->urlHelper->getUrl("pos/index/getProductList"),
+            "productFromChildSkuUrl"      => $block->urlHelper->getUrl("pos/index/getProductFromChildSku"),
+            "defaultCountry"              => $block->getDefaultCountry(),
+            "emptyCartImage"              => $block->getViewFileUrl("Webkul_Pos::images/empty-cart-icon.png"),
+            "offlineEnabled"              => $block->helper->getConfigData("pos/configuration/enableoffline"),
+            "categoryDataUrl"             => $block->urlHelper->getUrl("pos/index/getCategoryTree"),
+            "customerListUrl"             => $block->urlHelper->getUrl("pos/index/getCustomerData"),
+            "currentCurrency"             => $block->helper->storeManager->getStore()->getCurrentCurrency()->getCode(),
+            "barcodeAttribute"            => "barcode",
+            "customBarcodeAttr"           => $block->helper->getConfigData("pos/configuration/barcode_attribute"),
+            "posStylesheetUrl"            => $block->getViewFileUrl("Webkul_Pos::css/styles.css"),
+            "updateUserInfoUrl"           => $block->urlHelper->getUrl("pos/index/updateUserInfo"),
+            "changeCurrencyUrl"           => $block->urlHelper->getUrl("pos/index/changecurrency"),
+            "changeLanguageUrl"           => $block->urlHelper->getUrl("pos/index/changelanguage"),
+            "getcreditmemodata"           => $block->urlHelper->getUrl("pos/index/getcreditmemodata"),
+            "posPrintStylesheetUrl"       => $block->getViewFileUrl("Webkul_Pos::css/print.css"),
+            "emtycustomerListImage"       => $block->getViewFileUrl("Webkul_Pos::images/customer-search-empty.png"),
+            "notfoundCustomerListImage"   => $block->getViewFileUrl("Webkul_Pos::images/customer-not-found.png"),
+            "googleapikey"                => $block->helper->getConfigData("pos/configuration/googleapikey"),
+            "posCashDrawerPrintStylesheetUrl" => $block->getViewFileUrl("Webkul_Pos::css/cashDrawerPrint.css")
+        ];
+        $params = $block->jsonHelper->jsonEncode($params);  ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "posQuery" : <?= /** @noEscape */ $params; ?>
+        }
+    }
+</script>

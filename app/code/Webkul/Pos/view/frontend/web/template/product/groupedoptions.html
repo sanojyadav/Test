@@ -1,0 +1,48 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<div class="grouped-items-table-wrapper">
+    <% for (var i=0; i < groupedData.length; i++) {
+        var eachGroupedItem = groupedData[i]; %>
+        <div class="grouped-item">
+            <div class="grouped-item-heading-container">
+                <label class="grouped-item-heading"><%- eachGroupedItem.name %></label>
+            </div>
+            <div class="grouped-item-body-container">
+                <div class="grouped-item-image-container">
+                    <img title="<%- eachGroupedItem.name %>" alt="<%- eachGroupedItem.name %>" src="<%- eachGroupedItem.thumbNail %>" class="thumbnail">
+                </div>
+                <div class="grouped-item-content-container">
+                    <div class="grouped-item-price-container">
+                        <% 
+                        var priceToUse = 0;
+                        if (!eachGroupedItem.isInRange) {
+                            priceToUse = eachGroupedItem.price; %>
+                            <label class="regular-price"><%- eachGroupedItem.formatedPrice %></label>
+                        <% } else {
+                            priceToUse = eachGroupedItem.specialPrice; %>
+                            <label class="old-price"><%- eachGroupedItem.formatedPrice %></label><label class="special-price"><%- eachGroupedItem.formatedSpecialPrice %></label>
+                        <% } %>
+                    </div>
+                    <div class="grouped-item-qty-container">
+                        <label><%- qtyLabel %> :</label>
+                        <i class="material-icons editQty">remove_circle_outline</i>
+                        <input type="text" value="1" data-price-touse="'+priceToUse+'" class="qty" data-super-group-id="<%- eachGroupedItem.entityId %>"/><i class="material-icons editQty">add_circle_outline</i>
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>

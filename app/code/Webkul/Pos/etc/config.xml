@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ * 
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <pos>
+            <configuration>
+                <pagesize><![CDATA[50]]></pagesize>
+                <enableoffline><![CDATA[0]]></enableoffline>
+                <enablesinglelogin><![CDATA[1]]></enablesinglelogin>
+                <barcode_attribute><![CDATA[sku]]></barcode_attribute>
+                <enable_inventory_division><![CDATA[1]]></enable_inventory_division>
+            </configuration>
+            <pwaSetting>
+                <application_name><![CDATA[Point Of Sales]]></application_name>
+                <application_short_name><![CDATA[POS]]></application_short_name>
+                <bg_color><![CDATA[#FFFFFF]]></bg_color>
+                <theme_color><![CDATA[#eb5202]]></theme_color>
+            </pwaSetting>
+            <email>
+                <cashier_credentials_template>pos_email_cashier_credentials_template</cashier_credentials_template>
+                <order_email_template>sales_email_order_template</order_email_template>
+            </email>
+        </pos>
+        <carriers>
+            <pos>
+                <active>1</active>
+                <title>POS Pickup</title>
+                <name>POS Pickup</name>
+                <price>0</price>
+                <handling_type>F</handling_type>
+                <handling_fee>0</handling_fee>
+                <sallowspecific>0</sallowspecific>
+                <show_method>0</show_method>
+                <specific_error_msg>This shipping method is not available. To use this shipping method, please contact us.</specific_error_msg>
+                <model>Webkul\Pos\Model\Carrier\Shipping</model>
+            </pos>
+        </carriers>
+        <payment>
+            <poscash>
+                <active>1</active>
+                <model>Webkul\Pos\Model\Payment\Poscash</model>
+                <order_status>pending</order_status>
+                <title>Pos Cash Payment</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </poscash>
+            <poscredit>
+                <active>1</active>
+                <model>Webkul\Pos\Model\Payment\Poscredit</model>
+                <order_status>pending</order_status>
+                <title>Pos Credit/Debit Card Payment</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </poscredit>
+            <possplit>
+                <active>1</active>
+                <model>Webkul\Pos\Model\Payment\Possplit</model>
+                <order_status>pending</order_status>
+                <title>Pos Split Payment</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </possplit>
+        </payment>
+    </default>
+</config>

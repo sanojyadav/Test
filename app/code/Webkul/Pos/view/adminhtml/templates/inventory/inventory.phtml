@@ -1,0 +1,32 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul
+ * @copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<?php
+    $blockGrid = $block->getBlockGrid();
+    $gridJsObjectName = $blockGrid->getJsObjectName();
+?>
+<?= $block->getGridHtml(); ?>
+<input data-form-part="pos_outlet_form" 
+type="hidden" name="pos_outlet[outlet_selected_products]" 
+id="outlet_selected_products" value=""/>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Webkul_Pos/js/assign-products": {
+                "selectedProducts" : <?= $escaper->escapeHtml($block->getProductQtyData()) ?>,
+                "gridJsObjectName" : <?= /* @noEscape */ '"' . $gridJsObjectName . '"' ?: '{}' ?>
+            }
+        }
+    }
+</script>
+<script type="text/javascript">
+    require("mage/apply/main").apply();
+</script>

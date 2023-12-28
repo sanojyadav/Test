@@ -1,0 +1,22 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul
+ * @copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<button class="action-delete"
+        attr="{'data-action': 'remove_row', title: $t($parent.deleteButtonLabel)}"
+        data-bind="
+            click: $data.deleteRecord.bind($data, $record().index, $record().recordId),
+            attr: {
+                title: $parent.deleteButtonLabel
+            }
+        ">
+    <span translate="$parent.deleteButtonLabel"></span>
+    <small if="$data.notice" data-bind="text: notice"/>
+</button>

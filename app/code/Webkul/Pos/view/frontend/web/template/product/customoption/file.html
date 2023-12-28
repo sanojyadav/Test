@@ -1,0 +1,31 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<div class="input-box">
+    <% var filePrice = eachOption.unformated_price;
+        if (eachOption.price_type == "percent") {
+            filePrice = (currentProductData.finalPrice * eachOption.price) / 100;
+        }
+    %>
+    <input data-option-id="<%- eachOption.option_id %>" type="file" data-price="<%- filePrice %>" data-productid="<%- currentProductId %>" class="product-custom-option input-file">
+    <% if (eachOption.file_extension != "undefined") { %>
+        <p class="no-margin"><%- $t("Allowed file extensions to upload") %>:<strong><%- eachOption.file_extension %></strong></p>
+    <% }
+    if (eachOption.image_size_x > 0) { %>
+        <p class="no-margin"><%- $t("Maximum image width") %>:<strong><%- eachOption.image_size_x %> px.</strong></p>
+    <% }
+    if (eachOption.image_size_y > 0) { %>
+        <p class="no-margin"><%- $t("Maximum image height") %>>:<strong><%- eachOption.image_size_y %> px.</strong></p>
+    <% } %>
+</div>

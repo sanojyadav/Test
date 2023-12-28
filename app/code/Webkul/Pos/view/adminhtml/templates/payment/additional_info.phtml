@@ -1,0 +1,37 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul
+ * @copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<?= $block->escapeHtml($block->getMethod()->getTitle())?>
+<?php
+$method = $block->getMethod()->getMethod();
+if ($method == "poscredit" || $method == "possplit"):
+    $additionalInfo = $block->getAdditionalInformation();
+    unset($additionalInfo['method_title']);
+    if (!empty($additionalInfo)):
+        ?>
+    <table class="admin__table-secondary order-information-table">
+        <tbody>
+            <?php foreach ($additionalInfo as $key => $item): ?>
+                <tr>
+                    <th><?= /**@noEscape */ $key ?></th>
+                    <?php if (is_array($item)):
+                        foreach ($item as $detail):?>
+                        <td><?= /**@noEscape */ $detail?></td>
+                        <?php endforeach;
+                        else:?>
+                        <td><?= /**@noEscape */ $item ?></td>
+                        <?php endif;?>
+                </tr>
+            <?php endforeach;?>
+        </tbody>
+    </table>
+<?php endif;
+endif; ?>

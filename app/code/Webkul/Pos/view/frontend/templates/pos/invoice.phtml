@@ -1,0 +1,85 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul
+ * @copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<div class="invoice-container hidden">
+    <div class="invoice-main-wrapper">
+        <div class="invoice-header">
+            <img alt="<?= /* @noEscape */  __("point of sale"); ?>" 
+            class="invoice-logo" src="<?=  /* @noEscape */ $block->getLogo(); ?>"/>
+            <div class="invoice-row">
+                <label class="invoice-shop-name"></label>
+            </div>
+            <div class="invoice-row">
+                <label class="invoice-date-time"></label>
+                <label class="invoice-order-id-label"><?=  /* @noEscape */ __("Order Id"); ?>
+                <span class="invoice-order-id"></span>
+            </label>
+            </div>
+            <div class="invoice-row">
+                <label class="invoice-customer-name"></label>
+            </div>
+        </div>
+        <div class="invoice-content"></div>
+        <div class="invoice-totals-container">
+            <div class="invoice-row invoice-subtotal-container">
+                <label class="invoice-totals-name"><?= /* @noEscape */  __("Subtotal"); ?></label>
+                <label class="invoice-totals-amount"></label>
+            </div>
+            <div class="invoice-row hidden invoice-discount-container">
+                <label class="invoice-totals-name"><?= /* @noEscape */  __("Discount"); ?></label>
+                <label class="invoice-totals-amount"></label>
+            </div>
+            <div class="invoice-row hidden invoice-custom-discount-container">
+                <label class="invoice-totals-name"><?= /* @noEscape */  __("Custom Cart Discount"); ?></label>
+                <label class="invoice-totals-amount"></label>
+            </div>
+            <div class="invoice-row hidden invoice-tax-container">
+                <label class="invoice-totals-name"><?= /* @noEscape */  __("Tax"); ?></label>
+                <label class="invoice-totals-amount"></label>
+            </div>
+            <?php foreach ($block->getAdditionalTotals() as $total): ?>
+                <div class="invoice-row <?= $escaper->escapeHtml($total["class"]); ?>">
+                    <label class="invoice-totals-name"><?= $escaper->escapeHtml($total['label']); ?></label>
+                    <label class="invoice-totals-amount"></label>
+                </div>
+            <?php endforeach; ?>
+            <div class="invoice-row invoice-grand-total">
+                <label class="invoice-totals-name"><?= /* @noEscape */  __("Grand Total"); ?></label>
+                <label class="invoice-totals-amount"></label>
+            </div>
+        </div>
+        <div class="invoice-footer">
+            <div class="invoice-row">
+                <label class="invoice-title"><?= /* @noEscape */  __("Payment Method"); ?></label>
+                <label class="invoice-value invoice-payment-method"></label>
+            </div>
+            <div class="invoice-row">
+                <label class="invoice-title"><?= /* @noEscape */  __("Credit"); ?></label>
+                <label class="invoice-value invoice-received-amount"></label>
+            </div>
+            <div class="invoice-row">
+                <label class="invoice-title"><?= /* @noEscape */  __("Change"); ?></label>
+                <label class="invoice-value invoice-return-amount"></label>
+            </div>
+            <div class="invoice-row invoice-cashier-details">
+                <label class="invoice-title"><?= /* @noEscape */  __("Cashier"); ?></label>
+                <label class="invoice-value"></label>
+            </div>
+            <div class="invoice-row invoice-outlet-address">
+                <label class="address-value"></label>
+            </div>
+        </div>
+    </div>
+    <div class="invoice-print-button-container">
+        <i class="material-icons invoice-print-button-icon">print</i>
+        <label class="invoice-print-button-label"><?= /* @noEscape */  __("Print Invoice"); ?></label>
+    </div>
+</div>

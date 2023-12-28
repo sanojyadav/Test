@@ -1,0 +1,145 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+?>
+
+<?php if (is_array($block->getChildBlock('diagrams')->getTabsIds())): ?>
+    <script>
+        function outletFilter(event) {
+            var id = event.value;
+            var url = "<?= $escaper->escapeUrl($block->getUrl("pos/reporting/outlet"));?>id/"+id;
+            window.location = url;
+        }
+    </script>
+    <div class="fieldset-wrapper">
+        <div class="admin__data-grid-wrap row">
+            <div class="col-m-4">
+                <label for="order_outlet"
+                    class="label admin__field-label"><?= /* @noEscape */ __('Select Outlet:') ?></label>
+            </div>
+            <div class="col-m-8">
+                <select name="outlet" id="order_outlet" style="width: 100%"
+                        onchange="outletFilter(this);" class="admin__control-select">
+                        <option value="">
+                                <?= /* @noEscape */ __("Please Select") ?>
+                        </option>
+                    <?php foreach ($block->getOutletOptions() as $outlet): ?>
+                        <option value="<?= $escaper->escapeHtml($outlet['value']) ?>"
+                            <?php if ($block->getRequest()->getParam('id') == $outlet['value']): ?> 
+                                selected="selected"<?php endif; ?>>
+                                <?= $escaper->escapeHtml($outlet['label']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+    </div>
+<script>
+require([
+    'Magento_Ui/js/modal/alert',
+    'prototype'
+], function(alert){
+
+window.changeDiagramsPeriod = function(periodObj) {
+    <?php
+        $baseUrl = 'pos/reporting/ajaxBlock';
+        $diagramId = $block->getChildBlock('diagrams')->getId();
+    ?>
+    periodParam = periodObj.value ? 'period/' + periodObj.value + '/' : '';
+    <?php foreach ($block->getChildBlock('diagrams')->getTabsIds() as $tabId): ?>
+    ajaxBlockParam = 'block/tab_<?= $escaper->escapeJs($tabId) ?>/';
+    var urlStr = 
+    "<?=$escaper->escapeJs($block->getUrl($baseUrl, ['_current' => true, 'block' => '', 'period' => ''])) ?>";
+    ajaxBlockUrl = urlStr + ajaxBlockParam + periodParam
+    new Ajax.Request(ajaxBlockUrl, {
+        parameters: {isAjax: 'true', form_key: FORM_KEY},
+        onSuccess: function(transport) {
+            tabContentElementId = 
+            '<?=$escaper->escapeJs($diagramId) ?>_<?=$escaper->escapeJs($tabId) ?>_content';
+            try {
+                if (transport.responseText.isJSON()) {
+                    var response = transport.responseText.evalJSON()
+                    if (response.error) {
+                        alert({
+                            content: response.message
+                        });
+                    }
+                    if(response.ajaxExpired && response.ajaxRedirect) {
+                        setLocation(response.ajaxRedirect);
+                    }
+                } else {
+                    $(tabContentElementId).update(transport.responseText);
+                }
+            }
+            catch (e) {
+                $(tabContentElementId).update(transport.responseText);
+            }
+        }
+    });
+    <?php endforeach; ?>
+    ajaxBlockUrl = 
+    '<?=$escaper->escapeJs($block->getUrl($baseUrl, ['_current' => true, 'block' => 'totals', 'period' => ''])) ?>'
+    + periodParam;
+    new Ajax.Request(ajaxBlockUrl, {
+        parameters: {isAjax: 'true', form_key: FORM_KEY},
+        onSuccess: function(transport) {
+            tabContentElementId = 'dashboard_diagram_totals';
+            try {
+                if (transport.responseText.isJSON()) {
+                    var response = transport.responseText.evalJSON();
+                    if (response.error) {
+                        alert({
+                            content: response.message
+                        });
+                    }
+                    if(response.ajaxExpired && response.ajaxRedirect) {
+                        setLocation(response.ajaxRedirect);
+                    }
+                } else {
+                    $(tabContentElementId).replace(transport.responseText);
+                }
+            }
+            catch (e) {
+                $(tabContentElementId).replace(transport.responseText);
+            }
+        }
+    });
+}
+
+});
+</script>
+<?php endif; ?>
+<div class="dashboard-container row">
+    <div class="dashboard-main col-m-8 col-m-push-4">
+        <div class="dashboard-diagram-container">
+            <?= $block->getChildHtml('diagrams') ?>
+            <?php if (is_array($block->getChildBlock('diagrams')->getTabsIds())): ?>
+                <div id="diagram_tab_content" class="dashboard-diagram-tab-content"></div>
+            <?php endif; ?>
+        </div>
+        <?= $block->getChildHtml('totals') ?>
+        <div class="dashboard-store-stats">
+            <?= $block->getChildHtml('grids') ?>
+            <div id="grid_tab_content" class="dashboard-store-stats-content"></div>
+            <?= $block->getChildHtml('refresh_statistics') ?>
+        </div>
+    </div>
+    <div class="dashboard-secondary col-m-4 col-m-pull-8">
+        <?= $block->getChildHtml('sales') ?>
+        <div class="dashboard-item">
+            <div class="dashboard-item-title"><?= $escaper->escapeHtml(__('Last Orders')) ?></div>
+            <?= $block->getChildHtml('lastOrders') ?>
+        </div>
+    </div>
+</div>
+

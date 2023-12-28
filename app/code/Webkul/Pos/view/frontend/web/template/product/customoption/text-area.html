@@ -1,0 +1,26 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<div class="input-box">
+    <% 
+        var areaPrice = eachOption.unformated_price;
+        if (eachOption.price_type == "percent") {
+            areaPrice = (currentProductData.finalPrice * eachOption.price) / 100;
+        } 
+    %>
+    <textarea data-option-id="<%- eachOption.option_id %>" data-price="<%- areaPrice %>" cols="25" rows="5" class="custom-option-area-type product-custom-option" data-productid="<%- currentProductId %>" data-max-char="<%- eachOption.max_characters %>"></textarea>
+    <% if (eachOption.max_characters > 0) { %>
+        <p class="note"><%- $t("Maximum number of characters") %>: <strong><%- eachOption.max_characters %></strong></p>
+    <% } %>
+</div>

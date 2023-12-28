@@ -1,0 +1,14 @@
+type Query {
+    cmsPages: CmsPages @resolver(class: "Custom\\GraphQl\\Model\\Resolver\\CmsPages") @doc(description: "Get all CMS static pages from store.")
+}
+
+type CmsPages @doc(description: "Cms Pages graphql gather Data of all CMS page information") {
+    allPages: [PagesRecord] @doc(description: "An array containing the all the CMS Page from Magento")
+}
+
+type PagesRecord {
+    identifier: String @doc(description: "Identifier of CMS Page")
+    name: String @doc(description: "Get name of CMS Page")
+    page_layout: String @doc(description: "Get page layout of CMS Page")
+    content: String @doc(description: "Content of CMS Page")
+}

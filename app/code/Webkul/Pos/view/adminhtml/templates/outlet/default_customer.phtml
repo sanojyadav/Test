@@ -1,0 +1,161 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul
+ * @copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<div class="action-menu _active">
+    <div class="admin__action-multiselect-search-wrap">
+        <input class="customer-search-field admin__action-multiselect-search" 
+        type="text" placeholder="<?= /* @noEscape*/ __("Choose Default Customer") ?>">
+        <span class="file-uploader-spinner customer-loader"></span>
+        <label class="admin__action-multiselect-search-label"></label>
+        <div class="admin__action-multiselect-search-count"></div>
+    </div>
+    <ul class="admin__action-multiselect-menu-inner"></ul>
+    <div class="address-container"></div>
+</div>
+<script type="text/javascript">
+    require([
+        "jquery"
+    ], function($)  {
+        $(document).ready(function ()  {
+            setTimeout(function(){
+                loadCustomerList();
+            }, 300);
+        });
+        
+        var outletData = <?= /* @noEscape*/ $block->jsonEncode($block->getOutletData()); ?>;
+        var customerId = outletData["customer_id"]||0;
+        $("#address_id").val(outletData["address_id"]);
+        $("#customer_id").val(customerId);
+        var customerSearchInterval;
+        var customerData = [];
+        var isSearchResult = false;
+        var addressFound = "<?= /* @noEscape*/ __("address found"); ?>";
+        var customerFound = "<?= /* @noEscape*/ __("customer(s) found"); ?>";
+        var ajaxinProgress = false;
+        $(".customer-search-field").on("keyup", function ()  {
+            loadCustomerList();
+            isSearchResult = true;
+        });
+
+        function loadCustomerList() {
+            var queryString = $(".customer-search-field").val();
+            if (Number(queryString.length > 0 || customerId) && !ajaxinProgress)  {
+                customerData = [];
+                clearInterval(customerSearchInterval);
+                customerSearchInterval = setInterval(() =>  {
+                    ajaxinProgress = true;
+                    queryString = $.trim(queryString);
+                    $(".customer-loader").css("display","block");
+                    $.ajax({
+                        url: "<?= $escaper->escapeUrl($block->getUrl("pos/outlet/getcustomerlist")); ?>",
+                        type: "GET",
+                        data: {searchQuery:queryString, customerId:customerId},
+                        success: function (content)  {
+                            customerData = content.customer;
+                            $(".customer-loader").css("display","none");
+                            $(".admin__action-multiselect-search-count").text(customerData.length+" "+customerFound);
+                            refreshCustomerList();
+                            ajaxinProgress = false;
+                        },
+                        error: function (content)  {
+                            $(".customer-loader").css("display","none");
+                            ajaxinProgress = false;
+                        }
+                    });
+                    clearInterval(customerSearchInterval);
+                    return false;
+                }, 150);
+            }
+        }
+
+        function refreshCustomerList ()  {
+            $(".admin__action-multiselect-menu-inner").html("");
+            for (var i=0; i<customerData.length; i++)  {
+                var currentCustomer = customerData[i];
+                $(".admin__action-multiselect-menu-inner").append('<li class="action-menu-item"><input id="'+currentCustomer.id+'" value="'+currentCustomer.id+'" type="radio" name="customerId" class="selected-customer"><label for="'+currentCustomer.id+'" class="admin__action-multiselect-label"><span>'+currentCustomer.name+'</span></label></li>');
+            }
+            $(".admin__action-multiselect-menu-inner").find(".selected-customer").each(function()  {
+                if ($(this).val() == outletData["customer_id"] && !isSearchResult)  {
+                    $(this).trigger("click");
+                }
+            });
+        }
+
+        $(".address-container").on("click", ".each-address", function ()  {
+            $(".address-container").find(".each-address").removeClass("selected-address");
+            $(this).addClass("selected-address");
+            $(this).find(".address-radio").prop("checked", true);
+            $("#address_id").val($(this).attr("data-id"));
+        });
+
+        $(".admin__action-multiselect-menu-inner").on("change", ".selected-customer", function ()  {
+            $(".admin__action-multiselect-search-wrap").find(".customer-crumb").remove();
+            var thisThis = $(this);
+            var customerId = thisThis.val();
+            var customerName = thisThis.next().find("span").text();
+            $(".admin__action-multiselect-search-wrap")
+            .append('<span class="admin__action-multiselect-crumb customer-crumb"><span data-bind="text: label">'+customerName+
+            '</span><button class="remove-customer action-close" type="button"><span class="action-close-text">Close</span></button></span>');
+            $("#customer_id").val(customerId);
+            customerData = [];
+            $(".customer-search-field").attr("disabled","disabled");
+            refreshCustomerList();
+// fetching address /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ajaxinProgress = true;
+            $(".admin__action-multiselect-search-count").text("");
+            $(".customer-loader").css("display","block");
+            $.ajax({
+                url: "<?= $escaper->escapeUrl($block->getUrl("pos/outlet/getaddresslist")); ?>",
+                type: "GET",
+                data: {customerId:customerId},
+                success: function (content)  {
+                    var addressData = content.address;
+                    $(".customer-loader").css("display","none");
+                    $(".admin__action-multiselect-search-count").text(addressData.length+" "+addressFound);
+                    $(".address-container").html("");
+                    for (var index=0; index<addressData.length; index++)  {
+                        var eachAddress = addressData[index];
+                        var address = eachAddress.firstname+" "+eachAddress.lastname+", ";
+                            address += eachAddress.street+", ";
+                            address += eachAddress.city+", ";
+                            address += eachAddress.region+" ";
+                            address += eachAddress.postcode+", ";
+                            address += eachAddress.countryid;
+                        $(".address-container").append('<address data-id="'+eachAddress.entity_id+
+                        '" class="each-address"><input class="address-radio" type="radio" name="foraddress">'+address+'</address>');
+                    }
+                    $(".address-container").find(".each-address").each(function()  {
+                        if ($(this).attr("data-id") == outletData["address_id"])  {
+                            $(this).trigger("click");
+                        }
+                    });
+                    ajaxinProgress = false;
+                },
+                error: function (content)  {
+                    $(".customer-loader").css("display","none");
+                    ajaxinProgress = false;
+                }
+            });
+        });
+
+        $(".admin__action-multiselect-search-wrap").on("click", ".remove-customer", function ()  {
+            $("#address_id").val("");
+            $("#customer_id").val("");
+            $(".address-container").html("");
+            $(".customer-search-field").val("");
+            $(this).parents(".customer-crumb").remove();
+            $(".customer-search-field").removeAttr("disabled");
+            $(".admin__action-multiselect-search-count").text("");
+        });
+    });
+</script>
+<input data-form-part="pos_outlet_form" type="hidden" name="pos_outlet[address_id]" id="address_id"/>
+<input data-form-part="pos_outlet_form" type="hidden" name="pos_outlet[customer_id]" id="customer_id"/>

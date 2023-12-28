@@ -1,0 +1,36 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<div class="input-box">
+    <% for (var i = 0; i < eachOption.optionValues.length; i++) {
+        var value = eachOption.optionValues[i];
+        var radioPrice = value.unformated_price;
+        if (value.price_type == "percent") {
+            radioPrice = (currentProductData.finalPrice * value.price) / 100;
+        } %>
+        <div data-productid="<%- currentProductId %>" class="downloadable-row">
+            <i data-option-id="<%- eachOption.option_id %>" data-price="<%- radioPrice %>" class="material-icons option-radio product-custom-option" data-value="<%- value.option_type_id %>">radio_button_unchecked</i>
+            <% if (value.price > 0) {
+                if (value.price_type == "fixed") { %>
+                    <label class="custom-option_inner-label"><%- value.title %></label><span class="custom-option-price">+<%- value.formated_price %></span>
+                <% } else {
+                    var percentprice = (currentProductData.finalPrice * value.price) / 100; %>
+                    <label class="custom-option_inner-label"><%- value.title %></label><span class="custom-option-price">+<%- self.formatCurrency(percentprice) %></span>
+                <% }
+            } else { %>
+                <label><%- value.title %></label>
+            <% } %>
+        </div>
+    <% } %>
+</div>

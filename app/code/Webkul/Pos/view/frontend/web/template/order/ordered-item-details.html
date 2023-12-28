@@ -1,0 +1,100 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<table>
+    <tr>
+        <th class="tocheckwhilereturn"><%- $t("Product Name") %></th>
+        <th class="tocheckwhilereturn"><%- $t("Qty") %></th>
+        <th class="tocheckwhilereturn"><%- $t("Subtotal") %></th>
+        <th class="tocheckwhilereturn hidden action-column">
+            <i data-selected="off" class="material-icons return-all-item-checkbox">check_box_outline_blank</i>
+        </th>
+        <th class="tocheckwhilereturn hidden action-column">
+            <span><%- $t("Return to Stock") %></span>
+            <i style="float:right;" data-selected="off" class="material-icons return-to-stock-all-item-checkbox">check_box_outline_blank</i>
+        </th>
+    </tr>
+    <% for (var index in items) { %>
+        <% if (index % 2 == 0) { %>
+            <tr class="orderdetail-item even-orderdetail">
+        <% } else { %>
+            <tr class="orderdetail-item odd-orderdetail">
+        <% } %>
+        <td class="tocheckwhilereturn orderDetail-item-left-column">
+            <img width="30" src="<%- items[index].thumbNail %>"/>
+            <label class="cart-item-product-name"><%- items[index].name %></label>
+            <% if (items[index].options.viewableOptions || items[index].options.viewable_super_attribute) { %>
+                <table class="custom-option-table">
+                <% if (items[index].options.viewable_super_attribute) { %>
+                    <% for (var viewableKey in items[index].options.viewable_super_attribute) { %>
+                        <tr class="custom-option"><td><b><%- viewableKey %>:</b> </td>
+                        <td><%- items[index].options.viewable_super_attribute[viewableKey] %></td>
+                        </tr>
+                    <% } %>
+                <% } %>
+                <% if (items[index].options.viewableOptions) { %>
+                    <% for (var viewableKey in items[index].options.viewableOptions) { %>
+                        <tr class="custom-option"><td><b><%- viewableKey %>:</b></td>
+                        <% if (Array.isArray(items[index].options.viewableOptions[viewableKey])) { %>
+                            <td><%- items[index].options.viewableOptions[viewableKey].join(", ") %></td>
+                        <% } else { %>
+                            <td><%- items[index].options.viewableOptions[viewableKey] %></td>
+                        <% } %>
+                        </tr>
+                    <% } %>
+                <% } %>
+                </table>
+            <% } %>
+        <label class="cart-item-product-sku"><%- items[index].sku %></label>
+        <label class="cart-item-product-price"><%- self.formatCurrency(self.rateConversion(order.currencyCode, items[index].price)) %>
+        <% if (typeof items[index].customDiscount != "undefined") { %>
+            <span class="cart-item-custom-discount">(<%- self.formatCurrency(-self.rateConversion(order.currencyCode, items[index].customDiscount)) %>)</span>
+        <% } %>
+        </label></td>
+        <td class="tocheckwhilereturn art-item-middle-column">
+            <label><%- items[index].qty %></label>
+        </td>
+        <td class="tocheckwhilereturn orderDetail-item-right-column">
+            <label class="cart-item-sub-price">
+                <% 
+                    var discountedSubtotal = items[index].subtotal;
+                    if (typeof items[index].customDiscount != "undefined") {
+                        discountedSubtotal = (items[index].price-items[index].customDiscount)*items[index].qty;
+                    }
+                %>
+                <%- self.formatCurrency(self.rateConversion(order.currencyCode, discountedSubtotal)) %>
+            </label>
+        </td>
+        <td class="tocheckwhilereturn hidden">
+            <% if (typeof itemQtys[items[index].orderItemId] == "undefined") { %>
+                <i data-selected="off" class="material-icons return-this-item-checkbox">check_box_outline_blank</i>
+                <input data-orderitemid="<%- items[index].orderItemId %>" type="number" class="returnable-qty" min="1" max="<%- items[index].qty %>" value="<%- items[index].qty %>"/>
+            </td>
+            <td class="tocheckwhilereturn hidden">
+                <i data-selected="off" class="material-icons return-to-stock-this-item-checkbox"  id="checkToreturn<%- items[index].orderItemId %>">check_box_outline_blank</i>
+            </td>
+            <% } else if (itemQtys[items[index].orderItemId] < items[index].qty) { %>
+                <% var allowedQty = parseInt(items[index].qty) - parseInt(itemQtys[items[index].orderItemId]); %>
+                <i data-selected="off" class="material-icons return-this-item-checkbox">check_box_outline_blank</i>
+                <input data-orderitemid="<%- items[index].orderItemId %>" type="number" class="returnable-qty" min="1" max="<%- allowedQty %>" value="<%- allowedQty %>"/>
+                </td>
+                <td class="tocheckwhilereturn hidden">
+                    <i data-selected="off" class="material-icons return-to-stock-this-item-checkbox"  id="checkToreturn<%- items[index].orderItemId %>">check_box_outline_blank</i>
+                </td>
+            <% } else { %>
+                </td><td class="tocheckwhilereturn hidden"></td>
+            <% } %>
+        </tr>
+    <% } %>
+</table>

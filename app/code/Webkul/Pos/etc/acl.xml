@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ * 
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Webkul_Pos::pos" title="POS" sortOrder="11">
+                    <resource id="Webkul_Pos::outlet" title="Add/Manage Outlet" sortOrder="1"/>
+                    <resource id="Webkul_Pos::cashier" title="Add/Manage Cashier" sortOrder="2"/>
+                    <resource id="Webkul_Pos::orders" title="POS Orders" sortOrder="3"/>
+                    <resource id="Webkul_Pos::barcode" title="Print barcode" sortOrder="4"/>
+                    <resource id="Webkul_Pos::configuration" title="POS Configuration" sortOrder="5"/>
+                    <resource id="Webkul_Pos::reporting" title="POS Reporting" sortOrder="6">
+                        <resource id="Webkul_Pos::cashier_reporting" title="POS Cashier Reporting" sortOrder="1"/>
+                        <resource id="Webkul_Pos::outlet_reporting" title="POS Outlet Reporting" sortOrder="2"/>
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Webkul_Pos::config_pos" title="POS Configuration" sortOrder="50"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

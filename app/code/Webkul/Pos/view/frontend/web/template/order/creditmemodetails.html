@@ -1,0 +1,47 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<% if (count % 2 != 0) { %>
+    <div class='creditmemo-row'>
+<% } %>
+<div data-incrementId='<%- order.incrementId %>' data-creditMemoId='<%- creditMemo.creditMemoId %>' class='creditmemo-row-item action-label'>
+    <table>
+        <tr>
+            <td><%- $t("Credit Memo Id") %></td>
+            <td><b>#<%- creditMemo.creditMemoIncrementId %></b></td>
+        </tr>
+        <tr>
+            <td><%- $t("Order Id") %></td>
+            <td><b>#<%- creditMemo.orderId %></b></td>
+        </tr>
+        <tr>
+            <td><%- $t("Status") %></td>
+            <td><%- creditMemo.creditMemoStatus %></td>
+        </tr>
+        <tr>
+            <td><%- $t("Refunded") %></td>
+            <td><%- returnAmount %></td>
+        </tr>
+        <tr>
+            <td><%- $t("Date") %></td>
+            <td><%- creditMemo.date %></td>
+        </tr>
+    </table>
+</div>
+<% if (count % 2 != 0 && count == creditMemoCount) { %>
+    <div class='creditmemo-row-item-blank'></div>
+<% } %>
+<% if (count % 2 == 0) { %>
+    </div>
+<% } %>

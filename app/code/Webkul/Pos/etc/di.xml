@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ * 
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Webkul\Pos\Api\Data\OrdersInterface" type="Webkul\Pos\Model\Orders"/>
+    <preference for="Webkul\Pos\Api\Data\OutletInterface" type="Webkul\Pos\Model\Outlet"/>
+    <preference for="Webkul\Pos\Api\Data\CashierInterface" type="Webkul\Pos\Model\Cashier"/>
+    <preference for="Webkul\Pos\Api\Data\HoldorderInterface" type="Webkul\Pos\Model\Holdorder"/>
+    <preference for="Webkul\Pos\Api\Data\CreditmemoInterface" type="Webkul\Pos\Model\Creditmemo"/>
+    <preference for="Webkul\Pos\Api\Data\CashdrawerInterface" type="Webkul\Pos\Model\Cashdrawer"/>
+    <preference for="Webkul\Pos\Api\OrdersRepositoryInterface" type="Webkul\Pos\Model\OrdersRepository"/>
+    <preference for="Webkul\Pos\Api\OutletRepositoryInterface" type="Webkul\Pos\Model\OutletRepository"/>
+    <preference for="Webkul\Pos\Api\CashierRepositoryInterface" type="Webkul\Pos\Model\CashierRepository"/>
+    <preference for="Webkul\Pos\Api\HoldorderRepositoryInterface" type="Webkul\Pos\Model\HoldorderRepository"/>
+    <preference for="Webkul\Pos\Api\CreditmemoRepositoryInterface" type="Webkul\Pos\Model\CreditmemoRepository"/>
+    <preference for="Webkul\Pos\Api\CashdrawerRepositoryInterface" type="Webkul\Pos\Model\CashdrawerRepository"/>
+    <preference for="Magento\Catalog\Model\ResourceModel\Category\Tree" type="Webkul\Pos\Model\ResourceModel\Category\Tree"/>
+
+    <type name="Magento\Framework\Data\Collection\AbstractDb">
+        <plugin name="posGroupCountIssueFix" type="Webkul\Pos\Plugin\Framework\Data\Collection\AbstractDb" sortOrder="1"/>
+    </type>
+
+    <virtualType name="OutletGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="CashierGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="OutletGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="filterPool" xsi:type="object" shared="false">OutletGirdFilterPool</argument>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Pos\Model\ResourceModel\Outlet\Collection</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="CashierGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="filterPool" xsi:type="object" shared="false">CashierGirdFilterPool</argument>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Pos\Model\ResourceModel\Cashier\Collection</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="OrdersGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Pos\Model\ResourceModel\Orders\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">OrdersGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Webkul\Pos\Model\ResourceModel\Outlet\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">pos_outlet</argument>
+            <argument name="eventObject" xsi:type="string">outlet_grid_collection</argument>
+            <argument name="eventPrefix" xsi:type="string">pos_outlet_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Pos\Model\ResourceModel\Outlet</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\Pos\Model\ResourceModel\Cashier\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">pos_cashier</argument>
+            <argument name="eventObject" xsi:type="string">cashier_grid_collection</argument>
+            <argument name="eventPrefix" xsi:type="string">pos_cashier_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Pos\Model\ResourceModel\Cashier</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\Pos\Model\ResourceModel\Orders\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">pos_orders</argument>
+            <argument name="eventObject" xsi:type="string">orders_grid_collection</argument>
+            <argument name="eventPrefix" xsi:type="string">pos_orders_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Pos\Model\ResourceModel\Orders</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\Pos\Model\ResourceModel\Cashdrawer\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">pos_cashdrawer</argument>
+            <argument name="eventObject" xsi:type="string">cashdrawer_grid_collection</argument>
+            <argument name="eventPrefix" xsi:type="string">pos_cashdrawer_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Pos\Model\ResourceModel\Cashdrawer</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="pos_orders_listing_data_source" xsi:type="string">Webkul\Pos\Model\ResourceModel\Orders\Grid\Collection</item>
+                <item name="pos_outlet_listing_data_source" xsi:type="string">Webkul\Pos\Model\ResourceModel\Outlet\Grid\Collection</item>
+                <item name="pos_cashier_listing_data_source" xsi:type="string">Webkul\Pos\Model\ResourceModel\Cashier\Grid\Collection</item>
+                <item name="pos_reporting_cashier_listing_data_source" xsi:type="string">Webkul\Pos\Model\ResourceModel\Cashdrawer\Grid\Collection</item>
+                <item name="sales_order_grid_data_source" xsi:type="string">Webkul\Pos\Model\ResourceModel\Order\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\SalesRule\Model\Utility">
+        <plugin name="WebkulCartUtility" type="Webkul\Pos\Plugin\Utility" sortOrder="1" />
+    </type>
+    <type name="Magento\CatalogInventory\Model\Quote\Item\QuantityValidator\QuoteItemQtyList">
+        <plugin name="qtyItemList-plugin" type="Webkul\Pos\Plugin\Quote\Item\QuantityValidator\QuoteItemQtyList" sortOrder="1" />
+    </type>
+    <type name="Magento\Quote\Model\Quote\ProductOption">
+        <plugin name="quote-product-option-plugin" type="Webkul\Pos\Plugin\Quote\ProductOption" sortOrder="1" />
+    </type>
+    <type name="Magento\Framework\View\Layout">
+        <plugin name="render-layout-plugin" type="Webkul\Pos\Plugin\View\Layout" sortOrder="1" />
+    </type>
+
+    <virtualType name="Webkul\Pos\ImageUpload" type="Webkul\Pos\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">pos/profileimages/tmp</argument>
+            <argument name="basePath" xsi:type="string">pos/profileimages</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Webkul\Pos\Controller\Adminhtml\Cashier\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Webkul\Pos\ImageUpload</argument>
+        </arguments>
+    </type>
+
+    <preference for="Magento\Sales\Model\Order\Email\SenderBuilder" type="Webkul\Pos\Model\Sales\Order\Email\SenderBuilder" />
+
+    <preference for="Magento\Reports\Model\ResourceModel\Order\Collection" type="Webkul\Pos\Model\ResourceModel\ReportsOrder\Collection"/>
+
+    <type name="Webkul\Pos\Model\ResourceModel\Order\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_order_grid</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\Sales\Model\ResourceModel\Order</argument>
+        </arguments>
+    </type>
+</config>

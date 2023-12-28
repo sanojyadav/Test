@@ -1,0 +1,45 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<span class="time-picker">
+    <select class="checkIsFilled custom-option-hour custom-option-day-n-time">
+        <option value="">-</option>
+            <% for (var h=1; h<=12; h++) {
+                var value = h;
+                if (h.toString().length == 1) {
+                    value = "0"+value;
+                } %>
+                <option value="<%- h %>"><%- value %></option>
+            <% } %>
+    </select><b>:</b>
+    <select class="checkIsFilled custom-option-minute custom-option-day-n-time"><option value="">-</option>
+        <% for (var mi=0; mi< 60; mi++) {
+            var value = mi;
+            if (mi.toString().length == 1) {
+                value = "0"+value;
+            } %>
+            <option value="<%- mi %>"><%- value %></option>
+        <% }
+            var timePrice = eachOption.unformated_price;
+            if (eachOption.price_type == "percent") {
+                timePrice = (currentProductData.finalPrice * eachOption.price) / 100;
+            }
+        %>
+    </select>
+    <select class="checkIsFilled custom-option-day-part custom-option-day-n-time">
+        <option value="am"><%- $t("AM") %></option>
+        <option value="pm"><%- $t("PM") %></option>
+    </select>
+    <input data-option-id="<%- eachOption.option_id %>" data-price="<%- timePrice %>" type="hidden" value="" data-productid="<%- currentProductId %>" class="product-custom-option input-time"/>
+</span>

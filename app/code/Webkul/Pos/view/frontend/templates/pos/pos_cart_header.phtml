@@ -1,0 +1,36 @@
+<!--
+    /**
+     * Webkul Software.
+     * 
+     * PHP version 7.0+
+     *
+     * @category  Webkul
+     * @package   Webkul_Pos
+     * @author    Webkul <support@webkul.com>
+     * @copyright Webkul Software Private Limited (https://webkul.com)
+     * @license   https://store.webkul.com/license.html ASL Licence
+     * @link      https://store.webkul.com/license.html
+     */
+-->
+<div class="header-toolbar">
+    <div class="menu-btn-container top-menu-item cart-icon-container" title="<?= /* @noEscape */  __("Cart Count"); ?>">
+        <span class="cart-count"></span>
+        <i class="material-icons">shopping_cart</i>
+    </div>
+    <?php  if ($block->helper->getConfigData("pos/configuration/enableoffline") == 1) {    ?>
+    <div class="menu-btn-container top-menu-item sync-data-icon-container" 
+    title="<?= /* @noEscape */  __("Synchronise"); ?>">
+        <span class="offline-order-count"></span>
+        <i class="material-icons">cached</i>
+    </div>
+    <?php       }    ?>
+    <div class="menu-btn-container top-menu-item hold-cart-icon-container"
+    title="<?= /* @noEscape */  __("Put cart on hold"); ?>">
+        <span class="hold-cart-count"></span>
+        <i class="material-icons">remove_shopping_cart</i>
+    </div>
+    <div class="menu-btn-container top-menu-item fullscreen-icon-container" 
+    title="<?= /* @noEscape */  __("Put POS on fullscreen"); ?>">
+        <i class="material-icons">fullscreen</i>
+    </div>
+</div>

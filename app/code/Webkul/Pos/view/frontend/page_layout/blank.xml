@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul
+ * @copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+     <container name="root">
+        <container name="after.body.start" as="after.body.start" before="-" label="Page Top"/>
+        <container name="page.wrapper" as="page_wrapper" htmlTag="div" htmlClass="page-wrapper">
+            <container name="main.content" htmlTag="main" htmlId="maincontent">
+                <container name="main" label="Main Content Container" htmlTag="div"/>
+            </container>
+            <container name="header.container" as="header_container" label="Page Header Container" htmlTag="header" htmlClass="page-header" before="main.content"/>
+        </container>
+    </container>
+</layout>

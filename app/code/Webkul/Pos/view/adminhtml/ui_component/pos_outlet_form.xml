@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    /**
+    * Webkul Software.
+    *
+    * @category  Webkul
+    * @package   Webkul_Pos
+    * @author    Webkul
+    * @copyright (c) Webkul Software Private Limited (https://webkul.com)
+    * @license   https://store.webkul.com/license.html
+    */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="deps" xsi:type="string">pos_outlet_form.pos_outlet_form_data_source</item>
+            <item name="provider" xsi:type="string">pos_outlet_form.pos_outlet_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Outlet Information</item>
+        <item name="layout" xsi:type="array">
+            <item name="type" xsi:type="string">tabs</item>
+            <item name="navContainerName" xsi:type="string">left</item>
+        </item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Webkul\Pos\Block\Adminhtml\Outlet\Edit\BackButton</item>
+            <item name="save" xsi:type="string">Webkul\Pos\Block\Adminhtml\Outlet\Edit\SaveButton</item>
+            <item name="delete" xsi:type="string">Webkul\Pos\Block\Adminhtml\Outlet\Edit\DeleteButton</item>
+            <item name="save_and_continue" xsi:type="string">Webkul\Pos\Block\Adminhtml\Outlet\Edit\SaveAndContinueButton</item>
+        </item>
+        <item name="reverseMetadataMerge" xsi:type="boolean">true</item>
+    </argument>
+    <dataSource name="pos_outlet_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="name" xsi:type="string">pos_outlet_form_data_source</argument>
+            <argument name="class" xsi:type="string">Webkul\Pos\Model\Outlet\DataProvider</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="*/*/save"/>
+                    <item name="validate_url" xsi:type="url" path="*/*/validate"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="pos_outlet">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Outlet Information</item>
+            </item>
+        </argument>
+        <field name="id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                </item>
+            </argument>
+        </field>
+        <field name="outlet_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string" translate="true">Outlet Name</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="assignment_basis">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Product Assignment basis</item>
+                </item>
+                <item name="options" xsi:type="object">Webkul\Pos\Model\Config\Source\Assignment</item>
+            </argument>
+        </field>
+        <field name="default_customer">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Set Default customer</item>
+                </item>
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+            </argument>
+        </field>
+        <field name="address">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="wysiwyg" xsi:type="boolean">true</item>
+                    <item name="formElement" xsi:type="string">wysiwyg</item>
+                    <item name="rows" xsi:type="number">5</item>
+                    <item name="template" xsi:type="string">ui/form/field</item>
+                    <item name="label" xsi:type="string" translate="true">Outlet Address</item>
+                </item>
+            </argument>
+        </field>
+        <field name="status">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                </item>
+                <item name="options" xsi:type="object">Webkul\Pos\Model\Config\Source\Status</item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="category_tree" sortOrder="2">
+        <settings>
+            <collapsible>false</collapsible>
+            <label translate="true">Associate Category's Product</label>
+        </settings>
+        <container name="category_tree_container" sortOrder="1">
+            <htmlContent name="html_content">
+                <block class="Webkul\Pos\Block\Adminhtml\Outlet\Category" name="pos.category.tree"/>
+            </htmlContent>
+        </container>
+    </fieldset>
+    <fieldset name="assign_products" sortOrder="3" class="Webkul\Pos\Ui\Component\Form\AssignProduct">
+        <settings>
+            <collapsible>false</collapsible>
+            <label translate="true">Associated Products</label>
+        </settings>
+        <container name="assign_products_container" sortOrder="1">
+            <htmlContent name="html_content">
+                <block class="Webkul\Pos\Block\Adminhtml\Outlet\Edit\Tab\Inventory" name="pos.product.inventory"/>
+            </htmlContent>
+        </container>
+    </fieldset>
+    <fieldset name="default_customer" sortOrder="4">
+        <settings>
+            <collapsible>false</collapsible>
+            <label translate="true">Default Customer and Address</label>
+        </settings>
+        <container name="default_customer_container" sortOrder="1">
+            <htmlContent name="html_content">
+                <block class="Webkul\Pos\Block\Adminhtml\Outlet\Edit\Tab\DefaultCustomer" name="pos.default.customer"/>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

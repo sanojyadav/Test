@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ * 
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <!-- POS Outlet -->
+    <table name="pos_outlet">
+        <column xsi:type="int" name="id" unsigned="true" identity="true" nullable="false" comment="Id"/>
+        <column xsi:type="text" name="address" nullable="true" comment="Address"/>
+        <column xsi:type="varchar" length="255" name="outlet_name" nullable="true" comment="Outlet Name"/>
+        <column xsi:type="smallint" name="status" unsigned="true" nullable="false" default="0" comment="Status"/>
+        <column xsi:type="smallint" name="assignment_basis" unsigned="true" nullable="false" default="0" comment="Product Assignment basis"/>
+        <column xsi:type="smallint" name="default_customer" unsigned="true" nullable="false" default="0" comment="Enable Default Customer"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" default="0" comment="Default Customer Id"/>
+        <column xsi:type="int" name="address_id" unsigned="true" nullable="false" default="0" comment="Default Address Id"/>
+        <column xsi:type="int" name="seller_id" unsigned="true" nullable="false" default="0" comment="Seller Id"/>
+        <column xsi:type="text" name="category_ids" nullable="false" comment="Selected Category ids"/>
+        <column xsi:type="text" name="source_code" nullable="false" comment="Selected Source Code"/>
+        <column xsi:type="text" name="total_count" nullable="false" comment="Total Count of Products"/>
+        <column xsi:type="text" name="largest_pro_id" nullable="false" comment="Largest Product Id"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+
+    <!--  POS Cashier -->
+    <table name="pos_cashier">
+        <column xsi:type="int" name="id" unsigned="true" identity="true" nullable="false" comment="Id"/>
+        <column xsi:type="varchar" name="email" length="255" nullable="true" comment="Email"/>
+        <column xsi:type="varchar" length="255" name="password" nullable="true" comment="Password"/>
+        <column xsi:type="text" name="filename" nullable="true" comment="File Name"/>
+        <column xsi:type="varchar" length="255" name="lastname" nullable="true" comment="Last Name"/>
+        <column xsi:type="varchar" length="255" name="firstname" nullable="true" comment="First Name"/>
+        <column xsi:type="varchar" length="255" name="contactno" nullable="true" comment="Contact Number"/>
+        <column xsi:type="text" name="user_cart_item_list" nullable="true" comment="User Cart Item List"/>
+        <column xsi:type="smallint" name="status" unsigned="true" nullable="false" default="0" comment="Status"/>
+        <column xsi:type="smallint" name="sort_order" unsigned="true" nullable="false" default="0" comment="Sort Order"/>
+        <column xsi:type="int" name="seller_id" unsigned="true" nullable="false" default="0" comment="Seller Id"/>
+        <column xsi:type="smallint" name="is_login" unsigned="true" nullable="false" default="0" comment="Is Cashier Login"/>
+        <column xsi:type="int" name="cart_item_id" unsigned="true" nullable="false" default="0" comment="Cart Item Id"/>
+        <column xsi:type="int" name="outlet_id" unsigned="true" nullable="false" default="0" comment="Outlet Id"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+
+    <!-- Pos Inventory -->
+    <table name="pos_inventory">
+        <column xsi:type="int" name="id" unsigned="true" identity="true" nullable="false" comment="Id"/>
+        <column xsi:type="varchar" length="255" name="inventory" nullable="true" comment="Inventory"/>
+        <column xsi:type="int" name="outlet_id" unsigned="true" nullable="false" default="0" comment="Outlet Id"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" default="0" comment="Product Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+
+
+    <!-- POS Orders -->
+    <table name="pos_orders">
+        <column xsi:type="int" name="id" unsigned="true" identity="true" nullable="false" comment="Id"/>
+        <column xsi:type="varchar" length="255" name="state" nullable="true" comment="State"/>
+        <column xsi:type="varchar" length="255" name="status" nullable="true" comment="Status"/>
+        <column xsi:type="varchar" length="255" name="message" nullable="true" comment="Message"/>
+        <column xsi:type="text" name="items" nullable="true" comment="Ordered Items"/>
+        <column xsi:type="text" name="customer" nullable="true" comment="Customer Data"/>
+        <column xsi:type="text" name="address" nullable="true" comment="Address"/>
+        <column xsi:type="varchar" length="255" name="cashier_name" nullable="true" comment="Cashier Name"/>
+        <column xsi:type="varchar" length="255" name="pos_order_id" nullable="true" comment="Pos Order Id"/>
+        <column xsi:type="timestamp" name="date" nullable="false" default="CURRENT_TIMESTAMP" comment="Order Date"/>
+        <column xsi:type="decimal" scale="4" precision="12" name="tax" default="0.0000" nullable="false" comment="Tax" />
+        <column xsi:type="decimal" scale="4" precision="12" name="base_tax" default="0.0000" nullable="false" comment="Base Tax" />
+        <column xsi:type="decimal" scale="4" precision="12" name="grand_total" default="0.0000" nullable="false" comment="Grand Total" />
+        <column xsi:type="decimal" scale="4" precision="12" name="base_grand_total" default="0.0000" nullable="false" comment="Base Grand Total" />
+        <column xsi:type="decimal" scale="4" precision="12" name="grandtotal_discount" default="0.0000" nullable="false" comment="Grand Total Discount" />
+        <column xsi:type="decimal" scale="4" precision="12" name="base_grandtotal_discount" default="0.0000" nullable="false" comment="Base Grand Total Discount" />
+        <column xsi:type="varchar" name="payment_code" length="255" nullable="true" comment="Payment Code" />
+        <column xsi:type="varchar" name="payment_label" length="255" nullable="true" comment="Payment Label" />
+        <column xsi:type="decimal" scale="4" precision="12" name="discount" default="0.0000" nullable="false" comment="Discount" />
+        <column xsi:type="decimal" scale="4" precision="12" name="base_discount" default="0.0000" nullable="false" comment="Base Discount" />
+        <column xsi:type="decimal" scale="4" precision="12" name="cash_received" default="0.0000" nullable="false" comment="Cash Received" />
+        <column xsi:type="decimal" scale="4" precision="12" name="base_cash_received" default="0.0000" nullable="false" comment="Base Cash Received" />
+        <column xsi:type="decimal" scale="4" precision="12" name="cash_returned" default="0.0000" nullable="false" comment="Cash Returned" />
+        <column xsi:type="decimal" scale="4" precision="12" name="base_cash_returned" default="0.0000" nullable="false" comment="Base Cash Returned" />
+        <column xsi:type="int" name="order_id" default="0" nullable="false" comment="Order Id" />
+        <column xsi:type="int" name="cashier_id" default="0" nullable="false" comment="Cashier Id" />
+        <column xsi:type="int" name="address_id" default="0" nullable="false" comment="Address Id" />
+        <column xsi:type="varchar" length="255" name="formatted_grand_total" nullable="true" comment="Formatted Grand Total" />
+        <column xsi:type="int" name="customer_id" default="0" nullable="false" comment="Customer Id" />
+        <column xsi:type="smallint" name="synchronized" default="0" nullable="false" comment="Synchronized" />
+        <column xsi:type="smallint" name="is_new_customer" default="0" nullable="false" comment="Is New Customer" />
+        <column xsi:type="varchar" length="255" name="currency_code" default="0" nullable="false" comment="Currency Code" />
+        <column xsi:type="varchar" length="255" name="increment_id" default="0" nullable="false" comment="Increment Id" />
+        <column xsi:type="text" name="payment_info" nullable="true" comment="Payment Information" />
+        <column xsi:type="int" name="store_id" default="0" nullable="false" comment="Store Id" />
+        <column xsi:type="int" name="outlet_id" default="0" nullable="false" comment="Outlet Id" />
+        <column xsi:type="smallint" name="is_split_payment" default="0" nullable="false" comment="Is Payment Split" />
+        <column xsi:type="int" name="seller_id" default="0" nullable="false" comment="Seller Id" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+
+    <!-- Pos Cashdrawer -->
+    <table name="pos_cashdrawer">
+        <column xsi:type="int" name="id" unsigned="true" identity="true" nullable="false" comment="Id"/>
+        <column xsi:type="timestamp" name="date" nullable="false" default="CURRENT_TIMESTAMP" comment="Date"/>
+        <column xsi:type="text" name="transactions" nullable="true" comment="Transaction List"/>
+        <column xsi:type="decimal" scale="4" precision="12" name="initial_amount" nullable="true" default="0.0000" comment="Initial Amount"/>
+        <column xsi:type="decimal" scale="4" precision="12" name="base_initial_amount" nullable="true" default="0.0000" comment="Base Initial Amount"/>
+        <column xsi:type="decimal" scale="4" precision="12" name="remaining_amount" nullable="true" default="0.0000" comment="Remaining Amount"/>
+        <column xsi:type="decimal" scale="4" precision="12" name="base_remaining_amount" nullable="true" default="0.0000" comment="Base Remaining Amount"/>
+        <column xsi:type="int" name="cashier_id" default="0" nullable="false" comment="Cashier Id" />
+        <column xsi:type="varchar" length="255" name="currency_code" nullable="true" comment="Currency Code"/>
+        <column xsi:type="int" name="outlet_id" nullable="false" comment="Outlet Id" default="0"/>
+        <column xsi:type="smallint" name="is_synced" nullable="false" comment="Is Synced" default="0"/>
+        <column name="created_at" nullable="false" xsi:type="datetime" default="CURRENT_TIMESTAMP" on_update="false" comment="Created Time"/>
+        <column name="updated_at" nullable="true" xsi:type="datetime" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+
+    <!-- Pos Creditmemo -->
+     <table name="pos_creditmemo">
+        <column xsi:type="int" name="id" unsigned="true" identity="true" nullable="false" comment="Id"/>
+        <column xsi:type="timestamp" name="date" nullable="false" default="CURRENT_TIMESTAMP" comment="Date"/>
+        <column xsi:type="int" name="creditmemo_id" nullable="false" default="0" comment="Creditmemo Id"/>
+        <column xsi:type="varchar" length="255" name="order_id" nullable="true" comment="Order Id"/>
+        <column xsi:type="varchar" length="255" name="creditmemo_increment_id" nullable="true" comment="Creditmemo Increment Id"/>
+        <column xsi:type="decimal" scale="4" precision="12" name="return_amount" nullable="true" default="0.0000" comment="Return Amount"/>
+        <column xsi:type="int" name="cashier_id" default="0" nullable="false" comment="Cashier Id" />
+        <column xsi:type="varchar" length="255" name="creditmemo_status" nullable="true" comment="Credit Memo Status"/>
+        <column xsi:type="text" name="item_qtys" nullable="true" comment="Item Quantities"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+
+    <!-- Pos Holdorder -->
+    <table name="pos_holdorder">
+        <column xsi:type="int" name="id" unsigned="true" identity="true" nullable="false" comment="Id"/>
+        <column xsi:type="timestamp" name="date" nullable="false" default="CURRENT_TIMESTAMP" comment="Date"/>
+        <column xsi:type="text" name="items" nullable="true" comment="Ordered Items"/>
+        <column xsi:type="text" name="note" nullable="true" comment="Hold Order Note"/>
+        <column xsi:type="varchar" length="255" name="currency_code" nullable="true" comment="Currency Code"/>
+        <column xsi:type="decimal" scale="4" precision="12" name="grand_total" nullable="true" default="0.0000" comment="Grand Total"/>
+        <column xsi:type="decimal" scale="4" precision="12" name="base_grand_total" nullable="true" default="0.0000" comment="Base Grand Total"/>
+        <column xsi:type="int" name="cashier_id" nullable="true" default="0" comment="Cashier Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+
+    <!-- Sales Order -->
+    <table name="sales_order">
+        <column xsi:type="decimal" scale="4" precision="12" name="grandtotal_discount" nullable="true" comment="Grandtotal Discount"/>
+        <column xsi:type="decimal" scale="4" precision="12" name="base_grandtotal_discount" nullable="true" comment="Base Grandtotal Discount"/>
+        <column xsi:type="smallint" name="is_pos_order" nullable="false" default="0" comment="Is Pos Order"/>
+    </table>
+
+    <!-- Quote -->
+    <table name="quote">
+        <column xsi:type="decimal" scale="4" precision="12" name="grandtotal_discount" nullable="true" comment="Grandtotal Discount"/>
+        <column xsi:type="decimal" scale="4" precision="12" name="base_grandtotal_discount" nullable="true" comment="Base Grandtotal Discount"/>
+        <column xsi:type="smallint" name="is_pos_order" nullable="false" default="0" comment="Is Pos Order"/>
+    </table>
+
+    <!-- Invoice -->
+    <table name="sales_invoice">
+        <column xsi:type="decimal" scale="4" precision="12" name="grandtotal_discount" nullable="true" comment="Grandtotal Discount"/>
+        <column xsi:type="decimal" scale="4" precision="12" name="base_grandtotal_discount" nullable="true" comment="Base Grandtotal Discount"/>
+    </table>
+
+    <!-- creditmemo -->
+    <table name="sales_creditmemo">
+        <column xsi:type="decimal" scale="4" precision="12" name="grandtotal_discount" nullable="true" comment="Grandtotal Discount"/>
+        <column xsi:type="decimal" scale="4" precision="12" name="base_grandtotal_discount" nullable="true" comment="Grandtotal Discount"/>
+    </table>
+</schema>

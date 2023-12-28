@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul
+ * @copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="blank" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!-- <remove src="Magento_Customer/js/customer-data.js"/> -->
+        <remove src="css/print.css"/>
+        <remove src="css/styles-m.css"/>
+        <remove src="css/styles-l.css"/>
+        <remove src="mage/calendar.css"/>
+        <css src="Webkul_Pos::css/styles.css"/>
+    </head>
+    <body>
+        <referenceBlock name="head.additional">
+            <block name="pos.head.manifest" template="Webkul_Pos::head.phtml"></block>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <block class="Webkul\Pos\Block\Pos" name="pos_home" template="Webkul_Pos::pos.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="pos_home">
+            <block class="Webkul\Pos\Block\Pos" name="pos-invoice" template="Webkul_Pos::pos/invoice.phtml"/>
+        </referenceBlock>
+        <referenceBlock name="pos_home">
+            <block class="Webkul\Pos\Block\Pos" name="pos-cart-header" template="Webkul_Pos::pos/pos_cart_header.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

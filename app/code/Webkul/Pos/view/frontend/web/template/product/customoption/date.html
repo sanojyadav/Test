@@ -1,0 +1,43 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<select class="checkIsFilled custom-option-month custom-option-day-n-time">
+    <option value="">-</option>
+    <% for (var m=1; m<= 12; m++) {
+        var value = m;
+        if (m.toString().length == 1) {
+            value = "0"+value;
+        } %>
+        <option value="<%- m %>"><%- value %></option>';
+    <% } %>
+</select>
+<select class="checkIsFilled custom-option-day custom-option-day-n-time"><option value="">-</option>
+    <% for (var d=1; d <= 31; d++) {
+        var value = d;
+        if (d.toString().length == 1) {
+            value = "0"+value;
+        } %>
+        <option value="<%- d %>"><%- value %></option>
+    <% }
+        var d = new Date();
+        var datePrice = eachOption.unformated_price;
+        if (eachOption.price_type == "percent") {
+            datePrice = (currentProductData.finalPrice * eachOption.price) / 100;
+        }
+    %>
+</select>
+<select class="checkIsFilled custom-option-year custom-option-day-n-time">
+    <option value="">-</option><option value="<%- d.getFullYear() %>"><%- d.getFullYear() %></option>
+</select>
+<input data-option-id="<%- eachOption.option_id %>" data-price="<%- datePrice %>" type="hidden" value="" data-productid="<%- currentProductId %>" class="product-custom-option input-date"/>

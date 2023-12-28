@@ -1,0 +1,86 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul
+ * @copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<div class="page-main-actions">
+    <div class="page-actions" data-ui-id="page-actions-toolbar-content-header">
+        <div class="page-actions-inner" data-title="Joust Duffle Bag">
+            <div class="page-actions-buttons">
+                <button onclick="printBarcode()" 
+                id="print" title="Print" type="button" class="action- scalable action-secondary">
+                    <span>&#128438;</span>
+                    <?= /*@noEscape*/ __("Print");?>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+    $barcodeAttribute  = $block->_helper->getConfigData("pos/configuration/barcode_attribute");
+    $productCollection = $block->_filter->getCollection($block->_collectionFactory->create());
+    $productCollection->addAttributeToSelect("name");
+if ($barcodeAttribute != "sku") {
+    $productCollection->addAttributeToSelect($barcodeAttribute);
+}
+    $target    = $block->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+    $targetDir = $block->_directoryList->getPath("media");  ?>
+<div id="printable"><table><tbody>
+<?php
+foreach ($productCollection as $product) {
+    $fileName = str_replace([" ", "#", "/"], "_", $product->getData($barcodeAttribute)).".png";
+    if (!$block->_ioFile->isFile(
+        $targetDir."/"."pos"."/"."product"."/".$product->getId()."/".str_replace(
+            " ",
+            "_",
+            $product->getData($barcodeAttribute)
+        ).".png"
+    )
+        ) {
+        $basePath = $targetDir."/"."pos"."/"."product"."/".$product->getId()."/";
+        if (!$block->_ioFile->isFile($basePath.$fileName)) {
+            $block->_ioFile->createDirectory($basePath, 0777);
+            $block->_helperBarcode->generatebarcode(
+                $basePath.$fileName,
+                $product->getData($barcodeAttribute),
+                20,
+                "horizontal",
+                "code128",
+                false,
+                1
+            );
+        }
+    }
+    ?>
+    <tr>
+        <td><?= $escaper->escapeHtml($product->getId());?></td>
+        <td><?= $escaper->escapeHtml($product->getName());?></td>
+        <td><?= $escaper->escapeHtml($product->getData($barcodeAttribute));?></td>
+        <td>
+            <img src="<?= $escaper->escapeUrl($target."/"."pos"."/"."product"."/".$product->getId()."/".$fileName)?>"/>
+        </td>
+    </tr>
+    <?php
+} if (!count($productCollection)) { ?>
+    
+    <tr><td colspan="4">'<?= /*@noEscape*/ __("No BarCode Found")?></td></tr>
+    <?php
+}
+?>
+</tbody></table></div>
+<script type="text/javascript">
+    function printBarcode()  {
+        var printWindow = window.open("", "PRINT", "height=400,width=600");
+        printWindow.document.write
+        ("<html><head><title>POS Slip</title></head><style>td{padding:10px;vertical-align:top;}</style><body>");
+        printWindow.document.write(document.getElementById("printable").innerHTML);
+        printWindow.document.write("</body></html>");
+        printWindow.print();
+    }
+</script>

@@ -1,0 +1,61 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul (support@webkul.com)
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<% for (var index in eachOrder["items"]) {
+    var itemClass = "";
+    if (index % 2 == 0) {
+        itemClass = "even-item";
+    }
+    var item = eachOrder["items"][index]; %>
+    <tr class="invoice-item <%- itemClass %>">
+        <td class="invoice-table-td">
+            <label class="invoice-item-name"><%- item.name %></label>
+            <% if (typeof item.customDiscount != "undefined") { %>
+                <lable class="invoice-discount invoice-discount-label"><%- $t("Custom Discount") %></label>
+            <% } %>
+            <% if (item.options.viewableOptions || item.options.viewable_super_attribute) { %>
+                <table class="custom-option-table">
+                <% if (item.options.viewable_super_attribute) { %>
+                    <% for (var viewableKey in item.options.viewable_super_attribute) { %>
+                        <tr class="custom-option"><td><b><%- viewableKey %>:</b></td>
+                        <td><%- item.options.viewable_super_attribute[viewableKey] %></td>
+                        </tr>
+                    <% } %>
+                <% } %>
+                <% if (item.options.viewableOptions) { %>
+                    <% for (var viewableKey in item.options.viewableOptions) { %>
+                        <tr class="custom-option"><td><b><%- viewableKey %>:</b> </td>
+                        <% if (Array.isArray(item.options.viewableOptions[viewableKey])) { %>
+                            <td><%- item.options.viewableOptions[viewableKey].join(", ") %></td>
+                        <% } else { %>
+                            <td><%- item.options.viewableOptions[viewableKey] %></td>
+                        <% } %>
+                        </tr>
+                    <% } %>
+                <% } %>
+                </table>
+            <% } %>
+        </td>
+        <td class="invoice-table-td">
+            <label class="invoice-item-qty"><%- item.qty %></label>
+        </td>
+        <td class="invoice-table-td">
+            <label class="invoice-item-amount"><span><%- self.formatCurrency(item.subtotal) %></span>
+                <% if (typeof item.customDiscount != "undefined") { %>
+                    <span class="invoice-discount"><%- self.formatCurrency("-"+(item.customDiscount * item.qty)) %></span>
+                <% } %>
+            </label>
+        </td>
+    </tr>
+<% } %>

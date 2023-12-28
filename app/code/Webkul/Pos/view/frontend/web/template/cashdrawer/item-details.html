@@ -1,0 +1,38 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<% if (transactionData.length > 0) { %>
+    <% for (let i = 0; i < transactionData.length; i++) {
+        let item = transactionData[i].item;
+    %>  
+        <% if (i == 0) { %>
+            <div class="cash-drawer-details-table-row last-row">
+        <% } else { %>
+            <div class="cash-drawer-details-table-row">
+        <% } %>
+            <% if (item.incrementId == 0) { %>
+                <label class="cash-drawer-details-row-orderId" data-order-id="<%- item.posOrderId %>" data-order-type="offline"><%- item.posOrderId %></label>
+            <% } else { %>
+                <label class="cash-drawer-details-row-orderId" data-order-id="<%- item.incrementId %>" data-order-type="online" >#<%- item.incrementId %></label>
+            <% } %>
+                <label class="cash-drawer-details-row-balance"><%- transactionData[i].balanceAmount %></label>
+                <label class="cash-drawer-details-row-debit"><%- transactionData[i].cashReturnedAmount %></label>
+                <label class="cash-drawer-details-row-credit"><%- transactionData[i].cashReceivedAmount %></label>
+        </div>
+    <% } %>
+<% } else { %>
+    <div class="cash-drawer-details-table-row last-row">
+        <lable class="no-transaction-row"><%- $t("No Cash Transactions Found.") %></label>
+    </div>
+<% } %>

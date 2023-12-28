@@ -1,0 +1,104 @@
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul
+ * @copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+#button-container{
+    display: flex;
+    margin: 5px 0;
+}
+.action-btn{
+    margin: 2px;
+    flex-grow: 1;
+    flex-basis: 0;
+    color: #FFFFFF;
+    cursor: pointer;
+    padding: 10px 5px;
+    text-align: center;
+    border-color: #007bff;
+    background-color: #007bff;
+}
+.assignment-notification{
+    padding: 3px;
+    display: block;
+    margin: 2px;
+}
+.error-notification{
+    background-color: #eac9c9;
+    border: 1px solid #d81010;
+}
+.success-notification{
+    background-color: #c5eac5;
+    border: 1px solid #018201;
+}
+#assignment-status-inner-container{
+    height: 100%;
+    overflow: auto;
+}
+#mass-assignment-overlay{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    display: none;
+    position: fixed;
+    background-color: rgba(125, 125, 125, 0.55);
+}
+#assignment-status-container{
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    padding: 10px;
+    min-width: 500px;
+    min-height: 300px;
+    border-radius: 6px;
+    position: absolute;
+    background-color: #ffffff;
+    transform: translate(-50%, -50%);
+}
+.mass-loader{
+    width: auto;
+    display: none;
+}
+.sample-link{
+    float: right;
+}
+.action-menu{
+    position: relative !important;
+}
+.customer-loader{
+    top: 10px;
+    right: 50px;
+    position: absolute;
+}
+.customer-crumb{
+    top: 11px;
+    position: absolute;
+}
+.address-container{
+    margin: 5px 0;
+}
+.each-address{
+    cursor: pointer;
+    margin: 4px 10px;
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    padding: 5px 5px 5px 30px;
+    border: 1px solid #e2e2e2;
+}
+.selected-address{
+    border-color: #64aee2;
+    box-shadow: 0px 0px 3px #64aee2;
+}
+.address-radio{
+    top: 7px;
+    left: 5px;
+    position: absolute!important;
+}

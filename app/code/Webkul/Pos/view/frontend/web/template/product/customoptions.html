@@ -1,0 +1,33 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<dt>
+    <% if (eachOption.is_require == 1) { %>
+        <label class="option-label-required"><%= eachOption.title %></label>
+    <% } else { %>
+        <label class="option-label"><%= eachOption.title %></label>
+    <% } %>
+    <% if (eachOption.price > 0) { 
+        let formattedOptionPrice = "";
+        formattedOptionPrice = eachOption.formated_price;
+        if (eachOption.price_type != "fixed") {
+            formattedOptionPrice = self.formatCurrency(((currentProductData.finalPrice * eachOption.price) / 100));
+        }
+    %>
+        <span class="custom-option-price">+<%- formattedOptionPrice %></span>
+    <% } %>
+</dt>
+<dd>
+    <%= customOptionFieldData %>
+</dd>

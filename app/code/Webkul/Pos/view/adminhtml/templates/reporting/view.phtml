@@ -1,0 +1,215 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul
+ * @copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<?php
+    $data = $block->getCashierData();
+    $transactions = $block->json->jsonDecode($data['transactions']);
+    $helper = $block->helper;
+?>
+<div class="row">
+    <?php
+        $actionName = $block->getRequest()->getActionName();
+    if ($actionName == 'cashier_view'):
+        ?>
+    <div class="admin__data-grid-wrap">
+        <div class="admin__data-grid-pager-wrap">
+            <button class="primary" type="button" 
+                onclick="location.href = '<?= $escaper->escapeUrl($block->createPdfUrl()) ?>'">
+                <?= /*@noEscape*/ __("Export to PDF") ?>
+            </button>
+        </div>
+    </div>
+        <?php
+        else:
+            ?>
+        <div class="admin__data-grid-wrap">
+            <h2 class="main-title"><?= /*@noEscape*/ __("Cashier Reporting") ?></h2>
+        </div>
+            <?php
+    endif;
+        ?>
+    <div class="admin__data-grid-wrap">
+        <table class="data-grid">
+            <thead>
+                <tr>
+                    <th class="data-grid-th"></th>
+                    <th class="data-grid-th"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <?php
+                    $cashierName = $data['firstname']." ".$data['lastname'];
+                    if (empty($cashierName)) {
+                        $cashierName = "Cashier Removed";
+                    }
+                    ?>
+                    <td><?= /*@noEscape*/ __("Cashier Name") ?></td>
+                    <td><?= $escaper->escapeHtml($cashierName) ?></td>
+                </tr>
+                <tr>
+                    <td><?= /*@noEscape*/ __("Outlet Name") ?></td>
+                    <td><?= $escaper->escapeHtml($data['outlet_name'] ?? "Outlet does not exists") ?></td>
+                </tr>
+                <tr>
+                    <td><?= /*@noEscape*/ __("Logged In") ?></td>
+                    <td><?= $escaper->escapeHtml($helper->dateFormat($data['created_at'], 'M, d Y H:i A')) ?></td>
+                </tr>
+                <tr>
+                    <td><?= /*@noEscape*/ __("Logged Out") ?></td>
+                    <td><?= $escaper->escapeHtml($helper->dateFormat($data['updated_at'], 'M, d Y H:i A')) ?></td>
+                </tr>
+                <tr>
+                    <td><?= /*@noEscape*/ __("Initial Amount") ?></td>
+                    <td><?= $escaper->escapeHtml($helper->getFormattedPrice($data['base_initial_amount'])) ?></td>
+                </tr>
+                <tr>
+                    <td><?= /*@noEscape*/ __("Closing Amount") ?></td>
+                    <td><?= $escaper->escapeHtml($helper->getFormattedPrice($data['base_remaining_amount'])) ?></td>
+                </tr>
+                <tr>
+                    <td><?= /*@noEscape*/ __("Total Coupon Discount") ?></td>
+                    <td><?= $escaper->escapeHtml($helper->getFormattedPrice(abs($data['discount']))) ?></td>
+                </tr>
+                <tr>
+                    <td><?= /*@noEscape*/ __("Total Custom Discount") ?></td>
+                    <td><?= $escaper->escapeHtml($helper->getFormattedPrice($data['grandtotal_discount'])) ?></td>
+                </tr>
+                <tr>
+                    <td><?= /*@noEscape*/ __("Total Tax") ?></td>
+                    <td><?= $escaper->escapeHtml($helper->getFormattedPrice($data['tax'])) ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <?php
+    if (!empty($transactions)):
+        $transactions = array_reverse($transactions);
+        ?>
+    <div class="admin__data-grid-wrap transactions">
+        <h3><?= /*@noEscape*/ __("Transactions") ?></h3>
+        <table class="data-grid">
+            <thead>
+                <tr>
+                    <th class="data-grid-th"><?= /*@noEscape*/ __("Order Id") ?></th>
+                    <th class="data-grid-th"><?= /*@noEscape*/ __("Cash Received") ?></th>
+                    <th class="data-grid-th"><?= /*@noEscape*/ __("Cash Return") ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($transactions as $transaction):
+                    $incrementId = $transaction['incrementId'];
+                    if (!$incrementId) {
+                        $incrementId = $block->getMagentoOrderId($transaction['posOrderId']);
+                    }
+                    ?>
+                <tr>
+                    <td>
+                        <a target="_blank" href="<?= $escaper->escapeUrl($block->getOrderViewUrl($incrementId));?>"> 
+                           <?= $escaper->escapeHtml($incrementId) ?></a>
+                    </td>
+                    <td><?= $escaper->escapeHtml($block->getFormattedPrice(
+                        $transaction['cashReceived'],
+                        $transaction['currencyCode']
+                    )) ?></td>
+                    <td><?= $escaper->escapeHtml($block->getFormattedPrice(
+                        $transaction['cashReturned'],
+                        $transaction['currencyCode']
+                    )) ?></td>
+                </tr>
+                    <?php
+                    endforeach;
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="admin__data-grid-wrap orderItems">
+        <h3><?= /*@noEscape*/ __("Most Salable Products") ?></h3>
+        <table class="data-grid">
+            <thead>
+                <tr>
+                    <th class="data-grid-th"><?= /*@noEscape*/ __("Product Name") ?></th>
+                    <th class="data-grid-th"><?= /*@noEscape*/ __("Quantity Sold") ?></th>
+                    <th class="data-grid-th"><?= /*@noEscape*/ __("Tax") ?></th>
+                    <th class="data-grid-th"><?= /*@noEscape*/ __("Total") ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $orderItems = $block->orderItems;
+                if (empty($orderItems) || !$orderItems):
+                    ?>
+                <tr class="data-grid-tr-no-data">
+                    <td colspan="5"><?= /*@noEscape*/ __("We couldn't find any records.") ?></td>
+                </tr>
+                <?php else:
+                    usort($orderItems, function ($item1, $item2) {
+                        return $item2['qty'] <=> $item1['qty'];
+                    });
+                    foreach ($orderItems as $item):
+                        ?>
+                <tr>
+                    <td><?= $escaper->escapeHtml($item['name']) ?></td>
+                    <td><?= $escaper->escapeHtml($item['qty']) ?></td>
+                    <td><?= $escaper->escapeHtml($helper->getFormattedPrice($item['tax'])) ?></td>
+                    <td><?= $escaper->escapeHtml($helper->getFormattedPrice($item['grandtotal'])) ?></td>
+                </tr>
+                        <?php
+                    endforeach;
+                endif;
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="admin__data-grid-wrap customers">
+        <h3><?= /*@noEscape*/ __("Most Valuable Customers") ?></h3>
+        <table class="data-grid">
+            <thead>
+                <tr>
+                    <th class="data-grid-th"><?= /*@noEscape*/ __("Customer Name") ?></th>
+                    <th class="data-grid-th"><?= /*@noEscape*/ __("Orders") ?></th>
+                    <th class="data-grid-th"><?= /*@noEscape*/ __("Subtotal") ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $customers = $block->customers;
+                if (empty($customers)):?>
+                <tr class="data-grid-tr-no-data">
+                    <td colspan="3"><?= /*@noEscape*/ __("We couldn't find any records.") ?></td>
+                </tr>
+                    <?php
+                    
+                else:
+                    usort($customers, function ($item1, $item2) {
+                        return $item2['orders_count'] <=> $item1['orders_count'];
+                    });
+                    foreach ($customers as $item):
+                        ?>
+                <tr>
+                    <td><?= $escaper->escapeHtml($item['name']) ?></td>
+                    <td><?= $escaper->escapeHtml($item['orders_count']) ?></td>
+                    <td><?= $escaper->escapeHtml($helper->getFormattedPrice($item['total'])) ?></td>
+                </tr>
+                        <?php
+                    endforeach;
+                endif;
+                ?>
+            </tbody>
+        </table>
+    </div>
+        <?php
+            endif;
+    ?>
+</div>

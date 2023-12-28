@@ -1,0 +1,47 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<div id="product-options-wrapper" class="product-options">
+    <dl class="last">
+        <% for (var i=0; i<attributes.length; i++) { %>
+            <dt>
+                <label class="option-label-required"><%- attributes[i].label %></label>
+            </dt>
+            <% if (i == attributes.length-1) { %>
+                <dd class="last">
+            <% } else { %>
+                <dd>
+            <% } %>
+                <div class="input-box">
+                    <% if (i == 0) { %>
+                        <select data-productId="<%- currentProductId %>" data-position="<%- i %>" class="configuration required-entry super-attribute-select" data-attribute-id="<%- attributes[i].id %>" data-attribute-code="<%- attributes[i].code %>" data-attribute-label="<%- attributes[i].label %>">
+                    <% } else { %>
+                        <select data-productId="<%- currentProductId %>" data-position="<%- i %>" disabled="disabled" class="configuration required-entry super-attribute-select" data-attribute-id="<%- attributes[i].id %>" data-attribute-code="<%- attributes[i].code %>" data-attribute-label="<%- attributes[i].label %>">
+                    <% } %>
+                        <option value=""><%- chooseOptionLabel %></option>
+                        <% if (i == 0) { %>
+                            <% for (var j=0; j < attributes[i].options.length; j++) { %>
+                                <% if (attributes[i].options[j].price > 0) { %>
+                                    <option data-position="<%- j %>" value="<%- attributes[i].options[j].id %>" data-label="<%- attributes[i].options[j].label %>"><%- attributes[i].options[j].label %> <%-attributes[i].options[j].formatedPrice %></option>
+                                <% } else { %>
+                                    <option data-position="<%- j %>" value="<%- attributes[i].options[j].id %>" data-label="<%- attributes[i].options[j].label %>"><%- attributes[i].options[j].label %></option>
+                                <% } %>
+                            <% } %>
+                        <% } %>
+                    </select>
+                </div>
+            </dd>
+        <% } %>
+    </dl>
+</div>

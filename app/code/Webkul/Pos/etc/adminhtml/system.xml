@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ * 
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webkul" sortOrder="10">
+            <label>Webkul</label>
+        </tab>
+        <section id="pos" translate="label" type="text" sortOrder="310" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>POS</label>
+            <tab>webkul</tab>
+            <resource>Webkul_Pos::config_pos</resource>
+            <group id="configuration" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>POS Configuration</label>
+                <field id="enableoffline" translate="label" sortOrder="1" type="select" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Offline Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="pagesize" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Product Page Load Size</label>
+                    <comment>Should be integer value like 20, the entered value will be the count of products load at the time of pos initialization</comment>
+                </field>
+                <field id="enablesinglelogin" translate="label" sortOrder="3" type="select" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Cashier Single Login</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="googleapikey" translate="label" sortOrder="3" type="text" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Geo Location API Key</label>
+                    <comment model="Webkul\Pos\Block\Adminhtml\System\GoogleAPIComment"></comment>
+                </field>
+                <field id="barcode_attribute" translate="label" sortOrder="4" type="select" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Choose attribute for barcode</label>
+                    <source_model>Webkul\Pos\Model\Config\Source\Attribute</source_model>
+                </field>
+                <field id="logo" translate="label" type="image" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Invoice Slip Logo</label>
+                    <comment>Allowed file types: jpg, jpeg, gif, png. Recommended image size with same width and height ratio.</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">pos/logo</base_url>
+                    <upload_dir config="system/filesystem/media" scope_info="1">pos/logo</upload_dir>
+                    <depends>
+                        <field id="layout_settings">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="pwaSetting" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>PWA Configuration</label>
+                <field id="application_name" translate="label" sortOrder="2" type="text" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Application Name</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="application_short_name" translate="label" sortOrder="3" type="text" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Application Short Name</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="application_icon_48" translate="label" type="image" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Application Icon (48x48)</label>
+                    <comment>Allowed file types: jpg, jpeg, gif, png</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">pos/icon</base_url>
+                    <upload_dir config="system/filesystem/media" scope_info="1">pos/icon</upload_dir>
+                </field>
+                <field id="application_icon_72" translate="label" type="image" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Application Icon (72x72)</label>
+                    <comment>Allowed file types: jpg, jpeg, gif, png</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">pos/icon</base_url>
+                    <upload_dir config="system/filesystem/media" scope_info="1">pos/icon</upload_dir>
+                </field>
+                <field id="application_icon_96" translate="label" type="image" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Application Icon (96x96)</label>
+                    <comment>Allowed file types: jpg, jpeg, gif, png</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">pos/icon</base_url>
+                    <upload_dir config="system/filesystem/media" scope_info="1">pos/icon</upload_dir>
+                </field>
+                <field id="application_icon_144" translate="label" type="image" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Application Icon (144x144)</label>
+                    <comment>Allowed file types: jpg, jpeg, gif, png</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">pos/icon</base_url>
+                    <upload_dir config="system/filesystem/media" scope_info="1">pos/icon</upload_dir>
+                </field>
+                <field id="application_icon_168" translate="label" type="image" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Application Icon (168x168)</label>
+                    <comment>Allowed file types: jpg, jpeg, gif, png</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">pos/icon</base_url>
+                    <upload_dir config="system/filesystem/media" scope_info="1">pos/icon</upload_dir>
+                </field>
+                <field id="application_icon_192" translate="label" type="image" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Application Icon (192x192)</label>
+                    <comment>Allowed file types: jpg, jpeg, gif, png</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">pos/icon</base_url>
+                    <upload_dir config="system/filesystem/media" scope_info="1">pos/icon</upload_dir>
+                </field>
+                <field id="application_icon_384" translate="label" type="image" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Application Icon (384x384)</label>
+                    <comment>Allowed file types: jpg, jpeg, gif, png</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">pos/icon</base_url>
+                    <upload_dir config="system/filesystem/media" scope_info="1">pos/icon</upload_dir>
+                </field>
+                <field id="application_icon_512" translate="label" type="image" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Application Icon (512x512)</label>
+                    <comment>Allowed file types: jpg, jpeg, gif, png</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">pos/icon</base_url>
+                    <upload_dir config="system/filesystem/media" scope_info="1">pos/icon</upload_dir>
+                </field>
+                <field id="bg_color" translate="label" sortOrder="7" type="text" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Splash Backgroud Color</label>
+                    <validate>required-entry</validate>
+                    <frontend_model>Webkul\Pos\Block\Colorpicker</frontend_model>
+                </field>
+                <field id="theme_color" translate="label" sortOrder="8" type="text" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Theme Color</label>
+                    <validate>required-entry</validate>
+                    <frontend_model>Webkul\Pos\Block\Colorpicker</frontend_model>
+                </field>
+            </group>
+
+            <group id="email" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Email Templates</label>
+                <field id="cashier_credentials_template" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>POS Cashier Credentials Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+
+                <field id="order_email_template" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>POS Order Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+        </section>
+        <section id="carriers" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="pos" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Webkul POS pickup method</label>
+                <!-- <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0"  canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> -->
+                <field id="title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1"  canRestore="1">
+                    <label>Title</label>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1"  canRestore="1">
+                    <label>Method Name</label>
+                </field>
+                <field id="price" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0"  canRestore="1">
+                    <label>Price</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="handling_type" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0"  canRestore="1">
+                    <label>Calculate Handling Fee</label>
+                    <source_model>Magento\Shipping\Model\Source\HandlingType</source_model>
+                </field>
+                <field id="handling_fee" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="0"  canRestore="1">
+                    <label>Handling Fee</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0"  canRestore="1">
+                    <label>Sort Order</label>
+                </field>
+                <field id="sallowspecific" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0"  canRestore="1">
+                    <label>Ship to Applicable Countries</label>
+                    <frontend_class>shipping-applicable-country</frontend_class>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="91" showInDefault="1" showInWebsite="1" showInStore="0"  canRestore="1">
+                    <label>Ship to Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="show_method" translate="label" type="select" sortOrder="92" showInDefault="1" showInWebsite="1" showInStore="0"  canRestore="1">
+                    <label>Show Method if Not Applicable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="specific_error_msg" translate="label" type="textarea" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1"  canRestore="1">
+                    <label>Displayed Error Message</label>
+                </field>
+            </group>
+        </section>
+        <section id="payment" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="poscash" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Pos Cash Payment</label>
+                <field id="title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Title</label>
+                </field>
+            </group>
+            <group id="poscredit" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Pos Credit/Debit Payment</label>
+                <field id="title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Title</label>
+                </field>
+            </group>
+            <group id="possplit" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Pos Split Payment</label>
+                <field id="title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Title</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,34 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<div class="dashboard-diagram">
+    <div class="dashboard-diagram-switcher">
+        <label for="order_<?= /* @noEscape */ $block->getHtmlId() ?>_period"
+               class="label"><?= $escaper->escapeHtml(__('Select Range:')) ?></label>
+        <select name="period" id="order_<?= /* @noEscape */ $block->getHtmlId() ?>_period"
+                onchange="changeDiagramsPeriod(this);" class="admin__control-select">
+            <?php foreach ($block->getDashboardHelper()->getDatePeriods() as $value => $label): ?>
+                <?php
+                if (in_array($value, ['custom'])) {
+                    continue;
+                } ?>
+                <option value="<?= /* @noEscape */ $value ?>"
+                    <?php if ($block->getRequest()->getParam('period') == $value): ?> selected="selected"<?php endif; ?>
+                    ><?= $escaper->escapeHtml($label) ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <?php if ($block->getCount()): ?>
+    <div class="dashboard-diagram-image">
+        <img src="<?= $escaper->escapeUrl($block->getChartUrl(false)) ?>" 
+        class="dashboard-diagram-chart" alt="Chart" title="Chart" />
+    </div>
+    <?php else: ?>
+    <div class="dashboard-diagram-nodata">
+        <span><?= $escaper->escapeHtml(__('No Data Found')) ?></span>
+    </div>
+    <?php endif; ?>
+</div>

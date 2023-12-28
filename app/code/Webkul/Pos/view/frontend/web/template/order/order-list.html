@@ -1,0 +1,51 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<% if (showTopContainer) { %>
+    <span data-openstatus="off" class="order-date-container">
+        <table data-date="<%- orderDate %>" class="order-items-date">
+            <tr>
+                <td><%- orderDate %></td>
+            </tr>
+        </table>
+        <i class="material-icons show-order-button">keyboard_arrow_down</i>
+    </span>
+<% } %>
+
+<% if (showOrderDateContainer) { %>
+    <span data-openstatus="off" class="order-date-container">
+        <table data-date="<%- orderDate %>" class="order-items-date">
+            <tr>
+                <td><%- orderDate %></td>
+            </tr>
+        </table>
+        <i class="material-icons show-order-button">keyboard_arrow_down</i>
+    </span>
+<% } %>
+<table data-date-sub="<%- orderDate %>" class="hidden">
+    <tr class="order-item" data-hold="0" data-index="<%- index %>" data-order-id="<%- currentOrderId %>">
+        <td>
+            <% if (order.synchronized != 0) { let currentOrderId = "#"+order.incrementId; }%>
+            <label class="order-item-id"><%- currentOrderId %></label>
+            <label class="order-item-date"><%- fullOrderDate %></label>
+        </td>
+        <td title="<%- notSyncedLabel %>" class="order-item-status-container">
+            <i class="material-icons order-item-status">signal_wifi_off</i>
+        </td>
+        <td>
+            <label class="order-item-total"><%- orderGrandTotal %></label>
+            <label class="order-status"><%- orderStatus %></label>
+        </td>
+    </tr>
+</table>

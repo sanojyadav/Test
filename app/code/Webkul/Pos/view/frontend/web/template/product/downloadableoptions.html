@@ -1,0 +1,31 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<div id="product-options-wrapper" class="product-options">
+    <label class="downloadable-link-main-title"><%- links.title %></label>
+    <div class="options-list" id="downloadable-links-list">
+        <% for (var i=0; i < links.linkData.length; i++) {
+            var eachLink = links.linkData[i]; %>
+            <div data-productid="<%- currentProductId %>" class="downloadable-row"><div class="downloadable-inner-row">
+            <% if (links.linksPurchasedSeparately == 1) { %>
+                <i data-id="<%- eachLink.id %>" data-price="<%- eachLink.price %>" class="material-icons option-checkbox checkbox">check_box_outline_blank</i>
+            <% } %>
+            <label class="downloadable-link-title"><%= eachLink.linkTitle %></label></div>
+            <% if (eachLink.price > 0) { %>
+                <label class="downloadable-inner-row downloadable-price"><%- eachLink.formatedPrice %></label>
+            <% } %>
+            </div>
+        <% } %>
+    </div>
+</div>

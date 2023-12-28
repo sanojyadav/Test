@@ -1,0 +1,158 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<div id="product-options-wrapper" class="product-options"><dl class="last">
+        <% for (var i=0; i < bundleOptions.length; i++) {
+            var eachOption = bundleOptions[i];
+        %>
+            <dt>
+                <% 
+                    var requiredClass = "";
+                    if (eachOption.required == 1) {
+                        requiredClass = "required-entry";
+                %>
+                    <label class="option-label-required <%- eachOption.type %>"><%- eachOption.default_title %>
+                <% } else { %>
+                    <label class="option-label <%- eachOption.type %>"><%- eachOption.default_title %>
+                <% } %>
+                    </label>
+            </dt>
+            <% if ((i+1) < bundleOptions.length) { %>
+                <dd>
+            <% } else { %>
+                <dd class="last">
+            <% } %>
+                <div class="input-box">
+                    <%
+                        let selected = false;
+                        let selectedQty = 0;
+                        if (eachOption.type == "select") {
+                    %>
+                        <select class="<%- requiredClass %> bundle-option-select select change-container-classname" data-option-id="<%- eachOption.option_id  %>" >
+                        <% if (Object.keys(eachOption.optionValues).length > 1 || requiredClass == "") { %>
+                            <option value=""><%- $t("Choose a selection...") %></option>
+                        <% } %>
+                        <% for (var m = 0; m < eachOption.optionValues.length; m++) {
+                            var optionValues = eachOption.optionValues[m];
+                            var optionTitle = optionValues.title;
+                            if (optionValues.price > 0) {
+                                optionTitle += " + <b>"+self.formatCurrency(optionValues.price)+"</b>";
+                            }
+                            if (eachOption.optionValues.length == 1) {
+                            %>
+                                <option data-defaultqty="0" value="0"><%- $t("Select Option") %></option>
+                            <% }
+                            selected = (optionValues.isDefault == "1") ? true : false;
+                            if (selected) {
+                                selectedQty = optionValues.defaultQty; %>
+                                <option data-isQtyUserDefined="<%- optionValues.isQtyUserDefined %>" data-defaultqty="<%- optionValues.defaultQty %>" value="<%- optionValues.optionValueId %>" data-price="<%- optionValues.price %>" selected="true"><%= optionTitle %></option>
+                            <% } else { %>
+                                <option data-isQtyUserDefined="<%- optionValues.isQtyUserDefined %>" data-defaultqty="<%- optionValues.defaultQty %>" value="<%- optionValues.optionValueId %>" data-price="<%- optionValues.price %>" ><%= optionTitle %></option>
+                            <% } %>
+                        <% } %>
+                        </select>
+                    <% } %>
+                    <% if (eachOption.type == "multi") { %>
+                        <select multiple="multiple" class="<%- requiredClass %> bundle-option-select multiselect change-container-classname" data-option-id="<%- eachOption.option_id %>">
+                        <% if (requiredClass == "") { %>
+                            <option value="" data-price="0"><%- $t("None") %></option>
+                        <% } %>
+                        <% for (var j = 0; j < eachOption.optionValues.length; j++) {
+                            var optionValues = eachOption.optionValues[j];
+                            selected = (optionValues.isDefault == "1") ? true : false;
+                            var optionTitle = optionValues.title;
+                            if (optionValues.price > 0) {
+                                optionTitle += " + <b>"+self.formatCurrency(optionValues.price)+"</b>";
+                            }
+                            var price = optionValues.price;
+                            if (parseFloat(optionValues.defaultQty)) {
+                                price = (optionValues.price * parseFloat(optionValues.defaultQty));
+                            }
+                            if (selected) { %>
+                                <option value="<%- optionValues.optionValueId %>" data-price="<%- price %>" selected="true"><%= optionTitle %></option>
+                            <% } else { %>
+                                <option value="<%- optionValues.optionValueId %>" data-price="<%- price %>" ><%= optionTitle %></option>
+                            <% } %>
+                        <% } %>
+                        </select>
+                    <% } %>
+                    <% if (eachOption.type == "radio") { %>
+                        <ul class="options-list">
+                        <% if (requiredClass == "") { %>
+                            <li class="bundle-radio-checkbox-container">
+                                <i data-option-id="<%- eachOption.option_id %>" data-price="" class="material-icons option-radio product-custom-option <%- requiredClass %> radio" data-value="">radio_button_unchecked</i>
+                                <label class="label"><%- $t("None") %></label></li>
+                        <% }
+                            for (var k = 0; k < eachOption.optionValues.length; k++) {
+                            var optionValues = eachOption.optionValues[k];
+                            selected = (optionValues.isDefault == "1") ? true : false;
+                            var optionTitle = optionValues.title;
+                            if (optionValues.price > 0) {
+                                optionTitle += " + <b>"+self.formatCurrency(optionValues.price)+"</b>";
+                            }
+                            if (selected) {
+                                selectedQty = optionValues.defaultQty; %>
+                                <li class="bundle-radio-checkbox-container">
+                                    <i data-isQtyUserDefined="<%- optionValues.isQtyUserDefined %>" data-option-id="<%- eachOption.option_id %>" data-defaultqty="<%- optionValues.defaultQty %>" data-price="<%- optionValues.price %>" class="material-icons change-container-classname option-radio radio selected-radio" data-value="<%- optionValues.optionValueId %>" checked="true" >radio_button_checked</i>
+                                    <label class="label"><%= optionTitle %></label>
+                                </li>
+                            <% } else { %>
+                                <li class="bundle-radio-checkbox-container">
+                                    <i data-isQtyUserDefined="<%- optionValues.isQtyUserDefined %>" data-option-id="<%- eachOption.option_id %>" data-defaultqty="<%- optionValues.defaultQty %>" data-price="<%- optionValues.price %>" class="material-icons change-container-classname option-radio radio" data-value="<%- optionValues.optionValueId %>" checked="true" >radio_button_unchecked</i>
+                                    <label class="label"><%= optionTitle %></label>
+                                </li>
+                            <% } %>
+                        <% } %>
+                        </ul>
+                    <% } %>
+                    <% if (eachOption.type == "checkbox") { %>
+                        <ul class="options-list">
+                        <% for (var l = 0; l < eachOption.optionValues.length; l++) {
+                            var optionValues = eachOption.optionValues[l];
+                            selected = (optionValues.isDefault == "1") ? true : false;
+                            var optionTitle = optionValues.title;
+                            if (optionValues.price > 0) {
+                                optionTitle += " + <b>"+self.formatCurrency(optionValues.price)+"</b>";
+                            }
+                            var price = optionValues.price;
+                            if (parseFloat(optionValues.defaultQty)) {
+                                price = (optionValues.price * parseFloat(optionValues.defaultQty));
+                            }
+                            if (selected) { %>
+                                <li class="bundle-radio-checkbox-container">
+                                    <i data-option-id="<%- eachOption.option_id %>" data-price="<%- price %>" class="material-icons option-checkbox checkbox change-container-classname selected-checkbox" data-value="<%- optionValues.optionValueId %>">check_box</i>
+                                    <label class="label" for="bundle-option-<%- eachOption.option_id %>-<%- optionValues.optionValueId %>" ><%= optionTitle %></label>
+                                </li>
+                            <% } else { %>
+                                <li class="bundle-radio-checkbox-container">
+                                    <i data-option-id="<%- eachOption.option_id %>" data-price="<%- price %>" class="material-icons option-checkbox checkbox change-container-classname" data-value="<%- optionValues.optionValueId %>">check_box_outline_blank</i>
+                                    <label class="label" for="bundle-option-<%- eachOption.option_id %>-<%- optionValues.optionValueId %>" ><%= optionTitle %></label>
+                                </li>
+                            <% } %>
+                        <% } %>
+                        </ul>
+                    <% } %>
+                </div>
+                <% if ((eachOption.type == "select" || eachOption.type == "radio")) { %>
+                    <div class="qty-holder" >
+                        <label><%- $t("Qty") %>:</label>
+                        <i class="material-icons editQty">remove_circle_outline</i>
+                        <input type="text" value="<%- parseInt(selectedQty) %>" class="bundleChangeOptionQty input-text qty" />
+                        <i class="material-icons editQty">add_circle_outline</i>
+                    </div>
+                <% } %>
+            </dd>
+        <% } %>
+        </dl>
+    </div>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ * 
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="layout_load_before">
+        <observer name="restrict_website_to_load" instance="Webkul\Pos\Observer\Stopwebsite"/>
+    </event>
+    <event name="layout_render_before">
+        <observer name="restrict_website_to_load" instance="Webkul\Pos\Observer\Stopwebsite"/>
+    </event>
+    <event name="sales_order_creditmemo_save_after">
+        <observer name="create_creditmemo_entry" instance="Webkul\Pos\Observer\CreditMemo"/>
+    </event>
+    <event name="controller_action_postdispatch_adminhtml_system_config_save">
+        <observer name="pwa_config_save_observer" instance="Webkul\Pos\Observer\PostDispatchConfigSaveObserver"/>
+    </event>
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="sr_delivery_date" instance="Webkul\Pos\Observer\SaveOrderObserver"/>
+    </event>
+</config>

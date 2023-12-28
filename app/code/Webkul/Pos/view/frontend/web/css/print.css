@@ -1,0 +1,146 @@
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul
+ * @copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+@page { size: auto;  margin: 0mm; }
+.invoice-container {
+        background: #FFF;
+        max-width: 480px;
+        margin-left: 15mm;
+}
+.invoice-main-wrapper {
+    width: 90%;
+    font-weight: 500;
+    color: #000000;
+    font-family: Verdana;
+}
+.invoice-header {
+        float: none;
+        margin: 0px;
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e2e2e2;
+}
+.invoice-logo {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    background-position: 50px 50px;
+}
+.invoice-row {
+    padding: 2px;
+}
+.invoice-content {
+    padding: 10px 0;
+}
+.invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.even-item {
+    background-color: #f3f3f3;
+}
+.invoice-table-td {
+        padding: 2px 5px;
+}
+.invoice-item-name {
+        text-align: left;
+}
+.invoice-item-qty {
+        text-align: center;
+}
+.invoice-item-amount {
+        text-align: right;
+        display: block;
+}
+.invoice-totals-container {
+        margin-top: 15px;
+        padding-top: 10px;
+        position: relative;
+        border-top: 2px dashed;
+}
+.invoice-grand-total {
+        font-size: 15px;
+        color: #434343;
+        font-weight: bold;
+        padding-top: 10px;
+}
+.invoice-footer {
+        margin-top: 20px;
+        padding-top: 10px;
+        position: relative;
+        border-top: 1px solid #e2e2e2;
+}
+.invoice-cashier-details {
+        width: 100%;
+        padding-top: 10px;
+        text-transform: uppercase;
+}
+.invoice-outlet-address {
+        margin-top: 5px;
+        padding-top: 10px;
+        border-top: 1px solid #e2e2e2;
+}
+img {
+        display: block;
+}
+.invoice-totals-name {
+        width: 70%;
+        display: inline-block;
+}
+.invoice-totals-amount {
+        width: 30%;
+        float: right;
+        text-align: right;
+}
+.invoice-title {
+        width: 20%;
+        display: inline-block;
+}
+.invoice-value {
+        width: 80%;
+        float: right;
+        text-align: right;
+}
+.invoice-item-amount {
+        text-align: right;
+}
+.invoice-order-id-label {
+    display: inline-block;
+}
+.receipt-description img {
+        display   : inline;
+        max-width : 100%;
+}
+.invoice-custom-logo {
+        margin: 0 auto;
+}
+.invoice-discount-label {
+        display: block;
+}
+.invoice-discount-label {
+        display: block;
+}
+.invoice-discount {
+        color: #007500;
+        font-size: 10px;
+}
+.invoice-item-amount span {
+        display: block;
+}
+.custom-option-table tr {
+        background-color: transparent !important;
+}
+.custom-option {
+        font-size: 10px;
+}
+.invoice-item {
+        vertical-align: top;
+}

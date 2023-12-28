@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ * 
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add 
+            id="Webkul_Pos::pos" 
+            title="POS" 
+            module="Webkul_Pos" 
+            sortOrder="11" 
+            resource="Webkul_Pos::pos"/>
+
+        <add 
+            id="Webkul_Pos::outlet" 
+            title="Add/Manage Outlet" 
+            module="Webkul_Pos" 
+            sortOrder="1" 
+            parent="Webkul_Pos::pos" 
+            action="pos/outlet" 
+            resource="Webkul_Pos::outlet"/>
+
+        <add 
+            id="Webkul_Pos::cashier" 
+            title="Add/Manage Cashier" 
+            module="Webkul_Pos" 
+            sortOrder="2" 
+            parent="Webkul_Pos::pos" 
+            action="pos/cashier" 
+            resource="Webkul_Pos::cashier"/>
+
+        <add 
+            id="Webkul_Pos::orders" 
+            title="POS Orders" 
+            module="Webkul_Pos" 
+            sortOrder="3" 
+            parent="Webkul_Pos::pos" 
+            action="pos/orders" 
+            resource="Webkul_Pos::orders"/>
+
+        <add 
+            id="Webkul_Pos::configuration" 
+            title="POS Configuration" 
+            module="Webkul_Pos" 
+            parent="Webkul_Pos::pos" 
+            sortOrder="4" 
+            action="adminhtml/system_config/edit/section/pos/" 
+            resource="Webkul_Pos::pos"/>
+
+        <add 
+            id="Webkul_Pos::reporting" 
+            title="Reporting" 
+            sortOrder="10"
+            translate="title"
+            parent="Webkul_Pos::pos"
+            resource="Webkul_Pos::pos"
+            module="Webkul_Pos"/>
+
+        <add 
+            id="Webkul_Pos::cashier_reporting" 
+            title="Cashier Reporting" 
+            module="Webkul_Pos" 
+            parent="Webkul_Pos::reporting" 
+            sortOrder="4" 
+            action="pos/reporting/cashier"
+            resource="Webkul_Pos::cashier_reporting"/>
+
+        <add 
+            id="Webkul_Pos::outlet_reporting" 
+            title="Outlet Reporting" 
+            module="Webkul_Pos" 
+            parent="Webkul_Pos::reporting" 
+            sortOrder="4" 
+            action="pos/reporting/outlet"
+            resource="Webkul_Pos::outlet_reporting"/> 
+    </menu>
+</config>

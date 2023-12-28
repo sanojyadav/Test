@@ -1,0 +1,461 @@
+"Back to List","Back to List"
+"Delete Cashier","Delete Cashier"
+Reset,Reset
+"Save and Continue Edit","Save and Continue Edit"
+"Save Cashier","Save Cashier"
+Outlets,Outlets
+"Create New Outlet","Create New Outlet"
+Root,Root
+Save,Save
+Delete,Delete
+"Edit '%1'","Edit '%1'"
+"Add Outlet","Add Outlet"
+"Delete Outlet","Delete Outlet"
+"Save Outlet","Save Outlet"
+ID,ID
+Thumbnail,Thumbnail
+"Product Name","Product Name"
+Type,Type
+Quantity,Quantity
+"Outlet Information","Outlet Information"
+"Associated Products","Associated Products"
+Orders,Orders
+Amounts,Amounts
+Customer,Customer
+Guest,Guest
+Items,Items
+Total,Total
+"Lifetime Sales","Lifetime Sales"
+"Average Order","Average Order"
+"Customer Name","Customer Name"
+Average,Average
+Product,Product
+Price,Price
+Views,Views
+Revenue,Revenue
+Tax,Tax
+Shipping,Shipping
+"Custom Cart Discount","Custom Cart Discount"
+"Adjustment Refund","Adjustment Refund"
+"Adjustment Fee","Adjustment Fee"
+Pos,Pos
+Barcode,Barcode
+"Pos Barcodes","Pos Barcodes"
+"This cashier no longer exists.","This cashier no longer exists."
+"The cashier has been deleted.","The cashier has been deleted."
+"Requested cashier doesn't exist","Requested cashier doesn't exist"
+"Something went wrong while editing the banner.","Something went wrong while editing the banner."
+"Edit Cashier %1","Edit Cashier %1"
+"New Cashier","New Cashier"
+"POS Cashier","POS Cashier"
+"Cashier Manager","Cashier Manager"
+"A total of %1 cashier(s) were deleted.","A total of %1 cashier(s) were deleted."
+"A total of %1 cashier(s) were disabled.","A total of %1 cashier(s) were disabled."
+"A total of %1 cashier(s) were enabled.","A total of %1 cashier(s) were enabled."
+"A total of %1 cashier(s) were logged out.","A total of %1 cashier(s) were logged out."
+"Not changed.","Not changed."
+"Cashier saved successfully.","Cashier saved successfully."
+"Something went wrong while saving the cashier information. %1","Something went wrong while saving the cashier information. %1"
+"Please upload cashier profile image.","Please upload cashier profile image."
+"Sort order should be a number.","Sort order should be a number."
+"Lastname can not be blank.","Lastname can not be blank."
+"Firstname can not be blank.","Firstname can not be blank."
+"Please upload profile image.","Please upload profile image."
+"Password should match confirmation.","Password should match confirmation."
+"Password confirmation can not be blank.","Password confirmation can not be blank."
+"Password can not be blank.","Password can not be blank."
+"Contact number can not be blank.","Contact number can not be blank."
+"Contact number should be a number.","Contact number should be a number."
+"Email can not be blank.","Email can not be blank."
+"Invalid email address.","Invalid email address."
+"Cashier already exists with email id %1","Cashier already exists with email id %1"
+"POS Orders","POS Orders"
+"This outlet no longer exists.","This outlet no longer exists."
+"The outlet has been deleted.","The outlet has been deleted."
+"Outlet Manager","Outlet Manager"
+"A total of %1 outlet(s) were deleted.","A total of %1 outlet(s) were deleted."
+"A total of %1 outlet(s) were disabled.","A total of %1 outlet(s) were disabled."
+"A total of %1 outlet(s) were enabled.","A total of %1 outlet(s) were enabled."
+"The outlet has been saved.","The outlet has been saved."
+"Please choose atleast one category for product assignment.","Please choose atleast one category for product assignment."
+"Please select atleast one product inventory.","Please select atleast one product inventory."
+"Please fill address for this outlet.","Please fill address for this outlet."
+"Please choose default customer for this outlet.","Please choose default customer for this outlet."
+"Please choose default address for this outlet.","Please choose default address for this outlet."
+"Cashier Reporting","Cashier Reporting"
+"Report Details","Report Details"
+"Cashier Report","Cashier Report"
+"Outlet Reporting","Outlet Reporting"
+"invalid request","invalid request"
+"Check error log for more details","Check error log for more details"
+"Service unavailable: %1","Service unavailable: %1"
+"Outlet has been disabled or do not exists.","Outlet has been disabled or do not exists."
+"Login Successful.","Login Successful."
+"Wrong Password.","Wrong Password."
+"Wrong Username or already login.","Wrong Username or already login."
+"Some Error Occurred.","Some Error Occurred."
+"Successfully Logged Out.","Successfully Logged Out."
+"Customer Not Exists.","Customer Not Exists."
+"We found an invalid request for adding product to quote.","We found an invalid request for adding product to quote."
+"The requested quantity for %s is not available","The requested quantity for %s is not available"
+"The coupon code ""%1"" is not valid.","The coupon code ""%1"" is not valid."
+"Invalid shipping method.","Invalid shipping method."
+"Customer Address is not valid.","Customer Address is not valid."
+" & %1 product(s) is %2"," & %1 product(s) is %2"
+"Minimum order amount for %1 product(s) is %2","Minimum order amount for %1 product(s) is %2"
+"The requested quantity for %1 is not available.","The requested quantity for %1 is not available."
+"Successfully Currency Changed","Successfully Currency Changed"
+"Session Expired.","Session Expired."
+"Requested store is inactive","Requested store is inactive"
+"The store that was requested wasn't found. Verify the store and try again.","The store that was requested wasn't found. Verify the store and try again."
+"Successfully Language Changed","Successfully Language Changed"
+"Product Not Found","Product Not Found"
+"Product not found.","Product not found."
+POS,POS
+"Address did not exist. Please select different Address or add a new one.","Address did not exist. Please select different Address or add a new one."
+"Order not submitted.","Order not submitted."
+"You must confirm your account. Please check your email for the confirmation link.","You must confirm your account. Please check your email for the confirmation link."
+"Notified customer about pos invoice #%1.","Notified customer about pos invoice #%1."
+sample,sample
+"Unable to Authorize User.","Unable to Authorize User."
+"Cashier Id is required.","Cashier Id is required."
+"Outlet Id is required.","Outlet Id is required."
+"Account not found.","Account not found."
+"Account has been disabled.","Account has been disabled."
+"Session has been expired. Please login again","Session has been expired. Please login again"
+"Outlet doesnot exists.","Outlet doesnot exists."
+"Outlet has been disabled.","Outlet has been disabled."
+"No record exists","No record exists"
+"Unable to remove cashier with id %1","Unable to remove cashier with id %1"
+"Category based","Category based"
+"All Products","All Products"
+"Please Select","Please Select"
+Enabled,Enabled
+Disabled,Disabled
+"Something went wrong while saving the file(s).","Something went wrong while saving the file(s)."
+"File can not be saved to the destination folder.","File can not be saved to the destination folder."
+"Unable to remove inventory with id %1","Unable to remove inventory with id %1"
+"Unable to remove orders with id %1","Unable to remove orders with id %1"
+"Unable to remove outlet with id %1","Unable to remove outlet with id %1"
+"Could not load Sources for Stock","Could not load Sources for Stock"
+Edit,Edit
+"View Order","View Order"
+"Offline Order","Offline Order"
+View,View
+Print,Print
+"No BarCode Found","No BarCode Found"
+"Applicable only when 
+                ""Product Assignment basis"" is selected as ""Category based.","Applicable only when 
+                ""Product Assignment basis"" is selected as ""Category based."
+"Choose Default Customer","Choose Default Customer"
+"address found","address found"
+"customer(s) found","customer(s) found"
+"Customer Data","Customer Data"
+"point of sale","point of sale"
+"User Name","User Name"
+Password,Password
+"Sign in","Sign in"
+Close,Close
+"Credit Memo List","Credit Memo List"
+Logout,Logout
+Cashier,Cashier
+Home,Home
+"Order History","Order History"
+"Orders on Hold","Orders on Hold"
+"Cash Drawer","Cash Drawer"
+"Refresh Product List","Refresh Product List"
+"Refresh Category List","Refresh Category List"
+"Change Currency","Change Currency"
+"Change Language","Change Language"
+"Please enter opening amount for cash drawer.","Please enter opening amount for cash drawer."
+Done,Done
+Menu,Menu
+"Show Category","Show Category"
+"Network Indicator/Button","Network Indicator/Button"
+"Sorry no product found!","Sorry no product found!"
+"Enter SKU or Scan Barcode","Enter SKU or Scan Barcode"
+Options,Options
+"Please Fill Required field.","Please Fill Required field."
+Cancel,Cancel
+"Add To Cart","Add To Cart"
+1,1
+2,2
+3,3
+4,4
+5,5
+6,6
+7,7
+8,8
+9,9
+delete,delete
+"0 ","0 "
+"Add New Customer","Add New Customer"
+"Search for Customer","Search for Customer"
+Checkout,Checkout
+"Next Order","Next Order"
+Address,Address
+"Change Address","Change Address"
+"no saved address","no saved address"
+"Add Address","Add Address"
+"Apply Discount Coupon Code","Apply Discount Coupon Code"
+"Apply Discount Code","Apply Discount Code"
+"Enter discount code","Enter discount code"
+Apply,Apply
+"Add Note","Add Note"
+"Custom Message","Custom Message"
+"Payment Method","Payment Method"
+"Select Payment Method","Select Payment Method"
+Cash,Cash
+"Credit/Debit Card","Credit/Debit Card"
+"Provide last Four digit of card","Provide last Four digit of card"
+"Split Payment?","Split Payment?"
+"Total Payable","Total Payable"
+Change,Change
+"Place Order","Place Order"
+"First Name","First Name"
+"Last Name","Last Name"
+Email,Email
+Telephone,Telephone
+"Street Address","Street Address"
+"Street Address 2","Street Address 2"
+City,City
+"Zip/Postal Code","Zip/Postal Code"
+Country,Country
+State,State
+Continue,Continue
+"Custom Discount on grand Total","Custom Discount on grand Total"
+Fixed,Fixed
+Percentage,Percentage
+Discount,Discount
+"Custom Discount Per Item Price","Custom Discount Per Item Price"
+Subtotal,Subtotal
+"Grand Total","Grand Total"
+Sku,Sku
+"Cart Discount","Cart Discount"
+"Cart Item Discount","Cart Item Discount"
+"Empty cart","Empty cart"
+Pay,Pay
+"Online Order List","Online Order List"
+"Offline Order List","Offline Order List"
+"Order Details","Order Details"
+"View List","View List"
+Note,Note
+"Delete Cart","Delete Cart"
+"Sync Order","Sync Order"
+"Print Invoice","Print Invoice"
+Re-Cart,Re-Cart
+Return,Return
+"Opening Balance","Opening Balance"
+"Order id","Order id"
+Balance,Balance
+Debit,Debit
+Credit,Credit
+"Closing Balance","Closing Balance"
+"Select Range:","Select Range:"
+"No Data Found","No Data Found"
+"Select Outlet:","Select Outlet:"
+"Last Orders","Last Orders"
+"The information in this tab has been changed.","The information in this tab has been changed."
+"This tab contains invalid data. Please resolve this before saving.","This tab contains invalid data. Please resolve this before saving."
+Loading...,Loading...
+"Export to PDF","Export to PDF"
+"Cashier Name","Cashier Name"
+"Outlet Name","Outlet Name"
+"Logged In","Logged In"
+"Logged Out","Logged Out"
+"Initial Amount","Initial Amount"
+"Closing Amount","Closing Amount"
+"Total Coupon Discount","Total Coupon Discount"
+"Total Custom Discount","Total Custom Discount"
+"Total Tax","Total Tax"
+Transactions,Transactions
+"Order Id","Order Id"
+"Cash Received","Cash Received"
+"Cash Return","Cash Return"
+"Most Salable Products","Most Salable Products"
+"Quantity Sold","Quantity Sold"
+"We couldn't find any records.","We couldn't find any records."
+"Most Valuable Customers","Most Valuable Customers"
+.,.
+"Cart Count","Cart Count"
+Synchronise,Synchronise
+"Put cart on hold","Put cart on hold"
+"Put POS on fullscreen","Put POS on fullscreen"
+"Hello, ","Hello, "
+"Please find your login credentials.","Please find your login credentials."
+"Pos path","Pos path"
+Username,Username
+"Your %store_name order confirmation","Your %store_name order confirmation"
+"%customer_name,","%customer_name,"
+"Thank you for your order from %store_name.","Thank you for your order from %store_name."
+"Once your package ships we will send you a tracking number.","Once your package ships we will send you a tracking number."
+"You can check the status of your order by <a href=""%account_url"">logging into your account</a>.","You can check the status of your order by <a href=""%account_url"">logging into your account</a>."
+"If you have questions about your order, you can email us at <a href=""mailto:%store_email"">%store_email</a>","If you have questions about your order, you can email us at <a href=""mailto:%store_email"">%store_email</a>"
+"Your Order <span class=""no-link"">#%increment_id</span>","Your Order <span class=""no-link"">#%increment_id</span>"
+"Placed on <span class=""no-link"">%created_at</span>","Placed on <span class=""no-link"">%created_at</span>"
+"Billing Info","Billing Info"
+"Are you sure you want to do this?","Are you sure you want to do this?"
+"Please wait data sync is in progress !!","Please wait data sync is in progress !!"
+"Pos is now online, all products and customers are available for checkout.","Pos is now online, all products and customers are available for checkout."
+"Pos is now offline, only synced products and customers are available for checkout.","Pos is now offline, only synced products and customers are available for checkout."
+"User Name is a required field.","User Name is a required field."
+"Password is a required field.","Password is a required field."
+"Sorry something went wrong !!","Sorry something went wrong !!"
+"Are you sure?","Are you sure?"
+"You want to empty Cart.","You want to empty Cart."
+"Please Wait","Please Wait"
+"Please choose customer !!","Please choose customer !!"
+"Your shopping cart is empty.","Your shopping cart is empty."
+"Firstname is a required field.","Firstname is a required field."
+"HTML tags are not allowed.","HTML tags are not allowed."
+"Lastname is a required field.","Lastname is a required field."
+"Street Address is a required field.","Street Address is a required field."
+"City is a required field.","City is a required field."
+"State is a required field.","State is a required field."
+"Zip/Postal Code is a required field.","Zip/Postal Code is a required field."
+"Telephone is a required field.","Telephone is a required field."
+"Email already exist.","Email already exist."
+"Email is a required field.","Email is a required field."
+"Please provide valid email.","Please provide valid email."
+"Edit address","Edit address"
+"Add address","Add address"
+"Please choose customer address !!","Please choose customer address !!"
+"Card detail is required.","Card detail is required."
+"Payment method selected but amount not provided.","Payment method selected but amount not provided."
+"No payment method selected for split payment.","No payment method selected for split payment."
+"Insufficient amount provided for split payment.","Insufficient amount provided for split payment."
+"Amount provided is more than required for split payment.","Amount provided is more than required for split payment."
+"Please fill amount in cash !!","Please fill amount in cash !!"
+"Please fill correct amount in cash !!","Please fill correct amount in cash !!"
+"Order Placed Successfully !!","Order Placed Successfully !!"
+"Please Wait Checkout is in process!!","Please Wait Checkout is in process!!"
+"Please provide note to put this cart on hold!","Please provide note to put this cart on hold!"
+"Please provide hold order note.","Please provide hold order note."
+"All orders are already synchronised !!","All orders are already synchronised !!"
+"Please provide a valid coupon code.","Please provide a valid coupon code."
+"you want to reload product list.","you want to reload product list."
+"Loading products ...","Loading products ..."
+"POS is currently offline!!","POS is currently offline!!"
+"you want to reload category list.","you want to reload category list."
+"No Orders found!!","No Orders found!!"
+"Not synced","Not synced"
+"Order not synced yet.","Order not synced yet."
+"You want to delete this hold cart.","You want to delete this hold cart."
+"You want to recart.","You want to recart."
+"Order Synchronization started!!","Order Synchronization started!!"
+IN,IN
+OUT,OUT
+Date,Date
+"Please enter valid inAmount !!","Please enter valid inAmount !!"
+"None of the item is selected for return.","None of the item is selected for return."
+"Please add qty of the item to return.","Please add qty of the item to return."
+"Creditmemo created successfully.","Creditmemo created successfully."
+"Discount is a required field.","Discount is a required field."
+"Please enter valid discount.","Please enter valid discount."
+"Please enter amount as well only 2 digit after dot(.)","Please enter amount as well only 2 digit after dot(.)"
+"Exit fullscreen","Exit fullscreen"
+"You want to remove this item from cart.","You want to remove this item from cart."
+"This is a required field.","This is a required field."
+"Please select one of the options.","Please select one of the options."
+"Please specify the quantity of product(s).","Please specify the quantity of product(s)."
+Downloads,Downloads
+"Maximum number of characters is ","Maximum number of characters is "
+"This is a required option.","This is a required option."
+"Please select region, state or province","Please select region, state or province"
+Qty,Qty
+"Tax Amount","Tax Amount"
+"Discount Amount","Discount Amount"
+"Row Total","Row Total"
+"Proceeding will result into empty cart. Are you sure?","Proceeding will result into empty cart. Are you sure?"
+"Requested quantity is not available !!","Requested quantity is not available !!"
+"Minimum allowed quanity is %1","Minimum allowed quanity is %1"
+"You can buy this product only in quantities of %1 at a time.","You can buy this product only in quantities of %1 at a time."
+"Search customer for your current order.","Search customer for your current order."
+"Customer not exist.","Customer not exist."
+"Add Customer","Add Customer"
+"Sorry!!, something went wrong while fetching location, please try again later.","Sorry!!, something went wrong while fetching location, please try again later."
+"Hold by replacement","Hold by replacement"
+"Do you want to replace this cart with current cart?","Do you want to replace this cart with current cart?"
+"This Product is out of Stock !!","This Product is out of Stock !!"
+"Choose an Option...","Choose an Option..."
+OrderId,OrderId
+"Category list refreshed successfully.","Category list refreshed successfully."
+"Product list refreshed successfully.","Product list refreshed successfully."
+"Applied Discount must be less than cart price.","Applied Discount must be less than cart price."
+"Choose an Option...!","Choose an Option...!"
+"Invalid product !!","Invalid product !!"
+Reporting,Reporting
+"POS Configuration","POS Configuration"
+"Enable Offline Mode","Enable Offline Mode"
+"Product Page Load Size","Product Page Load Size"
+"Should be integer value like 20, the entered value will be the count of products load at the time of pos initialization","Should be integer value like 20, the entered value will be the count of products load at the time of pos initialization"
+"Enable Cashier Single Login","Enable Cashier Single Login"
+"Geo Location API Key","Geo Location API Key"
+"Choose attribute for barcode","Choose attribute for barcode"
+"Invoice Slip Logo","Invoice Slip Logo"
+"PWA Configuration","PWA Configuration"
+"Application Name","Application Name"
+"Application Short Name","Application Short Name"
+"Application Icon (48x48)","Application Icon (48x48)"
+"Application Icon (72x72)","Application Icon (72x72)"
+"Application Icon (96x96)","Application Icon (96x96)"
+"Application Icon (144x144)","Application Icon (144x144)"
+"Application Icon (168x168)","Application Icon (168x168)"
+"Application Icon (192x192)","Application Icon (192x192)"
+"Application Icon (384x384)","Application Icon (384x384)"
+"Application Icon (512x512)","Application Icon (512x512)"
+"Splash Backgroud Color","Splash Backgroud Color"
+"Theme Color","Theme Color"
+"Email Templates","Email Templates"
+"POS Cashier Credentials Email Template","POS Cashier Credentials Email Template"
+"POS Order Email Template","POS Order Email Template"
+"Webkul POS pickup method","Webkul POS pickup method"
+Title,Title
+"Method Name","Method Name"
+"Calculate Handling Fee","Calculate Handling Fee"
+"Handling Fee","Handling Fee"
+"Sort Order","Sort Order"
+"Ship to Applicable Countries","Ship to Applicable Countries"
+"Ship to Specific Countries","Ship to Specific Countries"
+"Show Method if Not Applicable","Show Method if Not Applicable"
+"Displayed Error Message","Displayed Error Message"
+"Pos Cash Payment","Pos Cash Payment"
+"Pos Credit/Debit Payment","Pos Credit/Debit Payment"
+"Pos Split Payment","Pos Split Payment"
+"Cashier Information","Cashier Information"
+"Email Address/Username","Email Address/Username"
+"Contact No.","Contact No."
+"Confirm Password","Confirm Password"
+Outlet,Outlet
+Status,Status
+"Add New Cashier","Add New Cashier"
+"Delete Cashiers","Delete Cashiers"
+"Are you sure you want to delete selected Cashier?","Are you sure you want to delete selected Cashier?"
+"Force Logout Cashiers","Force Logout Cashiers"
+"Are you sure you want to force logout selected Cashier?","Are you sure you want to force logout selected Cashier?"
+"Disable Cashier","Disable Cashier"
+"Are you sure you want to disable selected Cashier?","Are you sure you want to disable selected Cashier?"
+"Enable Cashier","Enable Cashier"
+"Are you sure you want to enable selected Cashier?","Are you sure you want to enable selected Cashier?"
+Image,Image
+"Is Login","Is Login"
+"Select Source","Select Source"
+"Product Assignment basis","Product Assignment basis"
+"Set Default customer","Set Default customer"
+"Outlet Address","Outlet Address"
+"Associate Category's Product","Associate Category's Product"
+"Default Customer and Address","Default Customer and Address"
+"Add New Outlet","Add New Outlet"
+"Delete Outlets","Delete Outlets"
+"Are you sure you want to delete selected Outlet?","Are you sure you want to delete selected Outlet?"
+"Disable Outlet","Disable Outlet"
+"Are you sure you want to disable selected Outlet?","Are you sure you want to disable selected Outlet?"
+"Enable Outlet","Enable Outlet"
+"Are you sure you want to enable selected Outlet?","Are you sure you want to enable selected Outlet?"
+"Has default customer?","Has default customer?"
+"Reporting Date","Reporting Date"
+"Final Amount","Final Amount"
+"Print Barcode Slip","Print Barcode Slip"
+"Bar Code","Bar Code"
+"POS Order","POS Order"
+Blank,Blank

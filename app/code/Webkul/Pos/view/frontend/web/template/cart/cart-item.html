@@ -1,0 +1,55 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * PHP version 7.0+
+ *
+ * @category  Webkul
+ * @package   Webkul_Pos
+ * @author    Webkul <support@webkul.com>
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html ASL Licence
+ * @link      https://store.webkul.com/license.html
+ */
+-->
+<tr class="cart-item <% if (count % 2 == 0) { %> even-item <% } %>" data-itemid="<%- item.itemId %>" data-qty="<%- item.qty %>" data-is-qty-decimal="<%- item.isQtyDecimalAllowed %>" data-min-allowed-qty="<%- item.minAllowedQty %>" data-max-allowed-qty="<%- item.maxAllowedQty %>" data-is-increment="<%- item.isQtyDecimalAllowed %>" data-min-increment="<%- item.minQtyIncrement %>">
+    <td>
+        <label><%- item.name %></label>
+        <% if (item.options.viewableOptions || item.options.viewable_super_attribute) { %>
+            <table class="custom-option-table">
+            <% if (item.options.viewable_super_attribute) { %>
+                <% for (var viewableKey in item.options.viewable_super_attribute) { %>
+                    <tr class="custom-option">
+                        <td><b><%- viewableKey %></b></td>
+                        <td><%- item.options.viewable_super_attribute[viewableKey] %></td>
+                    </tr>
+                <% } %>
+            <% } %>
+            <% if (item.options.viewableOptions) { %>
+                <% for (var viewableKey in item.options.viewableOptions) { %>
+                    <tr class="custom-option"><td><b><%- viewableKey %></b></td>
+                        <% if (Array.isArray(item.options.viewableOptions[viewableKey])) { %>
+                            <td><%- item.options.viewableOptions[viewableKey].join(", ") %></td>
+                        <% } else { %>
+                            <td><%- item.options.viewableOptions[viewableKey] %></td>
+                        <% } %>
+                    </tr>
+                <% } %>
+            <% } %>
+            </table>
+        <% } %>
+        <label class="cart-item-product-description"><%- item.qty %> <%- $t("Unit") %>(s)  <%- $t("at") %> <%- self.formatCurrency(item.price) %>/<%- $t("Unit") %>
+        </label>
+        <% if (item.customDiscount || item.customDiscount > 0) { %>
+            <label class="item-discount-tools discount-label"><%- $t("Custom Discount") %></label>
+        <% } %>
+    </td>
+    <td class="cart-item-price-container">
+        <label class="cart-item-price"><%- self.formatCurrency(item.subtotal) %></label>
+        <input value="<%- item.customDiscount %>" data-subtotal="<%- item.price %>" data-itemid="<%- item.itemId %>" class="custom-discount-field item-discount-tools" maxlength="10" type="hidden" readonly="readonly">
+        <% if (item.customDiscount || item.customDiscount > 0) { %>
+            <label class="cart-item-price"><%- formatedCustomDiscount %> x <%- item.qty %></label>
+        <% } %>
+    </td>
+    <td class="remove-item-button" data-itemid="<%- item.itemId %>"><i class="material-icons">delete_sweep</i></td>
+</tr>
