@@ -1,0 +1,10 @@
+<?php /** @var \Training\DependencyExample\Block\Dependency\Example $block */ ?>
+<div>
+<h3>Dependency Example Page</h3>
+<p>Class Main id: is <?= $block->getMain()->getId(); ?></p>
+<br>
+<p>Class Injectable id: is <?= $block->getMain()->getInjectable()->getId(); ?></p>
+<br>
+<p>Class NonInjectable id: is <?= $block->getMain()->getNonInjectable()->getId(); ?></p>
+</div>
+

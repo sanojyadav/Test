@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<page layout="2columns-right" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Dependency Example</title>
+    </head>
+    <body>
+        <!-- <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument name="page_title" xsi:type="string">Page Title</argument>
+            </action>
+        </referenceBlock> -->
+        <referenceContainer name="content">
+            <block name="layout_example" class="Training\Dependency\Block\Dependency\Index" template="Training_Dependency::home/content.phtml" />
+            <!-- <block name="layout_note" class="Training\LayoutExample\Block\Layout\Note" template="Training_Dependency::home/note.phtml" /> -->
+            <!-- <block name="sanoj_custom_block" class="Magento\Cms\Block\Block">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">sanoj_custom_block_id</argument>
+                </arguments>
+            </block> -->
+        </referenceContainer>
+    </body>
+</page>

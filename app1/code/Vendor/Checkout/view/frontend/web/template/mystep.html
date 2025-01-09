@@ -1,0 +1,63 @@
+<!--The 'step_code' value from the .js file should be used-->
+<li id="step_code" data-bind="fadeVisible: isVisible">
+    <div class="step-title cust" data-bind="i18n: 'Passport Information'" data-role="title"></div>
+    <div id="checkout-step-title"
+         class="step-content"
+         data-role="content">
+
+        <form data-bind="submit: navigateToNextStep" novalidate="novalidate">
+            <div class="actions-toolbar">
+                <div class="primary">
+
+                    <div class="pass-information">
+                        
+                        <label for="fname">First name:</label>
+                          <input type="text" id="fname" name="fname" placeholder="First Name">
+                        <label for="lname">Last name:</label>
+                          <input type="text" id="lname" name="lname" placeholder="First Name">
+                        <label for="pnumber">Phone Number:</label>
+                          <input type="number" id="phone" name="phone" placeholder="Phone">
+                        <label for="datetime">Flight Date/Time (date and time):</label>
+                          <input type="datetime-local" id="datetime" name="datetime">
+                        <label for="fname">Passport Number:</label><br>
+                          <input type="text" id="pasno" name="pasno" placeholder="Passport No">
+                        <label for="datebirth">Date Of Birth(min 2 years Old):</label>
+                          <input type="date" id="datebirth" name="datebirth" placeholder="Date Of Birth:">
+                        <label for="Passportexpiry">Parimary Passport Expiry Date:</label>
+                          <input type="date" id="Passportexpiry" name="Passportexpiry" placeholder="Parimary Passport Expiry:">
+                        <label for="flno">Flight No:</label><br>
+                          <input type="text" id="flno" name="flno" placeholder="Passport Name">
+                        <label for="psname">Passport Name :</label>
+                          <input type="text" id="psname" name="psname" placeholder="Passport Name">
+                        <label for="psname">No Of Co-Travel(s):</label>
+                          <select name="cars" id="cars">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                          </select>
+                          <br><br>
+                        <label for="fcotraveler">First Co-Traveler Name :</label>
+                          <input type="text" id="fcotraveler" name="fcotraveler" placeholder="First Co-Traveler Name">
+                        <label for="codate">First Co-Traveler Expiry Date:</label>
+                          <input type="date" id="codate" name="codate" placeholder="First Co-Traveler Expiry:">
+                        <label for="co-datebirth">First Co-Traveler Date Of Birth(min 2 years Old):</label>
+                          <input type="date" id="co-datebirth" name="codatebirth" placeholder="Date Of Birth:">
+                        <label for="pscotraveler">First Co-Traveler Passport No:</label>
+                          <input type="text" id="pscotraveler" name="pscotraveler" placeholder="First Co-Traveler Passport No:">
+                        <label for="state">State/ Province:</label>
+                            <select name="state" id="state">
+                                <option value="delhi">Delhi</option>
+                                <option value="bihar">Bihar</option>
+                                <option value="bangal">Bangal</option>
+                                <option value="hariyana">Hariyana</option>
+                            </select>
+                    </div>
+                    <button data-role="opc-continue" type="submit" class="button action continue primary">
+                        <span><!-- ko i18n: 'Next'--><!-- /ko --></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</li>

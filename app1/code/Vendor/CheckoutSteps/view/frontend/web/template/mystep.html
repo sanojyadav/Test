@@ -1,0 +1,40 @@
+<!--The 'step_code' value from the .js file should be used-->
+<li id="step_codes" data-bind="fadeVisible: isVisible">
+    <div class="step-title" data-bind="i18n: 'Flight Information'" data-role="title"></div>
+    <div id="checkout-step-title"
+         class="step-content"
+         data-role="content">
+
+        <form data-bind="submit: navigateToNextStep" novalidate="novalidate">
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <div class="flight-source">
+                        <label for="state">Flight Source</label>
+                        <select name="state" id="state">
+                            <option value="delhi">Delhi</option>
+                            <option value="bihar">Bihar</option>
+                            <option value="bangal">Bangal</option>
+                            <option value="hariyana">Hariyana</option>
+                        </select>
+                        <label for="country">Nationality</label>
+                        <select name="country" id="country">
+                            <option value="indian">India</option>
+                            <option value="nepal">Nepal</option>
+                            <option value="sri lanka">Sri Lanka</option>
+                            <option value="Canada">Canada</option>
+                        </select>
+                    </div>
+                     <div class="transit">
+                         <label for="tpassenger">Are You Transit Passanger ?</label>
+                        <input type="radio" id="tyes" name="tyes" >
+                        <input type="radio" id="tno" name="tno" >
+                     </div>
+
+                    <button data-role="opc-continue" type="submit" class="button action continue primary">
+                        <span><!-- ko i18n: 'Next'--><!-- /ko --></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</li>

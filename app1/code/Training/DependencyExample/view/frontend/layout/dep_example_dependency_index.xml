@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page layout="2columns-right" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <!-- <head>
+        <title>Dependency Example</title>
+    </head> -->
+    <body>
+        <referenceContainer name="content">
+            <block name="layout_example" class="Training\DependencyExample\Block\Dependency\Example" template="Training_DependencyExample::home/content.phtml" />
+        </referenceContainer>
+    </body>
+</page>
